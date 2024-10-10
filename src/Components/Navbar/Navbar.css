@@ -1,14 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-
 body{
-	font-family: 'Roboto', sans-serif;
-}
-* {
-	margin: 0;
-	padding: 0;
-}
-i {
-	margin-right: 10px;
+	font-family: "Roboto", sans-serif;
+	font-weight: 400;
+	font-style: normal;
 }
 /*----------bootstrap-navbar-css------------*/
 .navbar-logo{
@@ -54,6 +47,11 @@ i {
 	background-color: black;
 	color:white;
 	border-radius: 14px;
+	transform:none;
+}
+#navbarSupportedContent>ul>li:hover
+{
+	transform: scale(1.1);
 }
 #navbarSupportedContent a:not(:only-child):after {
 	content: "\f105";
@@ -82,10 +80,11 @@ i {
 
 .hori-selector img
 {
-	height: 42px;
-	width: 42px;
-	border-radius: 100%;
-	margin-left: -44px;
+	height: 95px;
+    width: 322px;
+    border-radius: 100%;
+    margin-top: -25px;
+	margin-left: -135px;
 }
 
 .hori-selector .left{
@@ -115,7 +114,7 @@ i {
 	bottom: 0;
     left: -25px;
 	background-color: #5161ce;
-    background-image: url('../Assests/logo.webp');
+    /* background-image: url('../Assests/logo.webp'); */
     background-size: cover;
     background-position: center;
 }

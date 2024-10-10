@@ -3,6 +3,7 @@ import './Landpage.css';
 import Landingimag from '../Assests/landing2.png';
 import Exculisive from '../Exculisive/Exculisive';
 import Categoryall from '../Categoryall/Categoryall';
+import Offers from '../Offers/Offers';
 
 const Landpage = () => {
   const carouselRef = useRef(null);
@@ -83,6 +84,9 @@ const Landpage = () => {
             <img src={Landingimag} style={{ height: '835px' }} className="LandingpageImg" alt="Landing" />
           </div>
         </div>
+      </div>
+      <div className='row'>
+        <Offers/>
       </div>
     </>
   );

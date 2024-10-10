@@ -3,7 +3,7 @@ import './Product.css';
 const Product = ({item}) => {
   return (
     <>
-      <div className='cols'>
+      <div className='cols' id="ProductsArea">
         <figure>
               <img src={item.Url_slug}/>
               <figcaption>{item.Product_name}</figcaption>

@@ -1,28 +1,52 @@
-.product-slider {
-    width: 400px; /* Custom width */
-    height: 200px; /* Custom height */
-    margin: 0 auto; /* Center the slider */
-  }
-  
-  .productImage img {
-    width: 100%; /* Ensure images take full width */
-    height: auto; /* Maintain aspect ratio */
-  }
-  
-  .productImage h4 {
-    text-align: center;
-    margin-top: 10px;
-    font-size: 14px;
-  }
-  
-  .productImage
-  {
-    padding: 0 5px; /* Reduced gap between products */
-    width: 175px !important;
-    display: inline-block;
-    
-  }
-  .slick-slide 
-  {
-    width: 185px !important;
-  }
+
+
+ .slider {
+  position: relative;
+  height: 300px;
+  display: flex;
+  margin-top: 50px;
+  width: 500px;
+  gap: 20px;
+  transition: transform ease 0.2s;
+}
+
+ .slide.active {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+ .slider-wrapper {
+  position: relative;
+}
+
+ .prev-button {
+  position: absolute;
+  top: 50%;
+  left:-29px;
+  z-index: 1;
+}
+
+.next-button {
+  position: absolute;
+  top: 50%;
+  right: 26px;
+  z-index: 1;
+}
+.slick-list{
+  margin-left: 46px !important;
+}
+ .zoom-effect {
+  overflow: hidden;
+  width: 300px; /* Adjust based on your image size */
+  height: 200px; /* Adjust based on your image size */
+}
+
+ .zoom-effect img {
+  transition: transform 0.8s ease;
+}
+
+ .zoom-effect:hover img {
+  transform: scale(1.1); /* Adjust the zoom level as needed */
+  height: 190px;
+  width:  190px;
+}

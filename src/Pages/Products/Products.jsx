@@ -3,42 +3,42 @@ import './Products.css';
 import axios from 'axios';
 import Product from '../../Components/Product/Product';
 import Categoryfilter from '../../Components/Categoryfilter/Categoryfilter';
+import nodatafound from '../../Components/Assests/nodatafound.png'
 
 const Products = ({category}) => {
-  let categoarys = category;
+  var categoarys = category;
   const [CategoarysData, setCategoarysData] = useState([]);
+  const [checkedItems, setCheckedItems] = useState([]);
+  if(checkedItems.length!='')
+  {
+    categoarys =checkedItems;
+  }
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/api/productscat/${categoarys}`);
+        setCategoarysData(response.data);  // Set your state with response data here
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+    fetchProducts();
+  }, [categoarys]);
 
-useEffect(() => {
-  const fetchProducts = async () => {
-    try {
-      const response = await axios.get(`http://localhost:3000/api/productscat/${categoarys}`);
-      setCategoarysData(response.data);  // Set your state with response data here
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
-  };
-  fetchProducts();
-}, [categoarys]);
-
-  
   return (
     <>
-    <div className='container'> 
-      <h6>Categoary Name : <b>{categoarys}</b></h6>
-    </div>
-    <div className="accordion container-fluid container-xl mt-3" style={{height: '711px'}}>
+    <div className="accordion container-fluid container-xl mt-5" style={{height: '711px'}}>
         <div className='row'>
-            <div className='col-lg-3 Categoary'>
-                <Categoryfilter/>
+            <div className='col-lg-2 Categoary'>
+                <Categoryfilter categoarys={categoarys} checkedItems={checkedItems} setCheckedItems={setCheckedItems}/>
             </div>
-            <div className='col-lg-9' style={{ overflowX: 'hidden'  , padding: '0 5px'  , height: '783px'}}>
+            <div className='col-lg-10' style={{ overflowX : 'hidden'  , padding: '0 5px'  , height: '783px'}}>
               <div id="columns" className="columns_5" >
-                {CategoarysData.map((item, index) => (
+                {CategoarysData.length !=0 ? CategoarysData.map((item, index) => (
                   (
-                    
                     <Product item={item} key={index}/>
                   )
-                ))}
+                )):<img src={nodatafound}></img>}
               </div>
             </div>
         </div>

@@ -1,83 +1,73 @@
-import React, { useState } from 'react';
+import React, { useEffect,  useState } from 'react';
 import './Categoryfilter.css';
-const Categoryfilter = () => {
+const Categoryfilter = ({categoarys , checkedItems ,setCheckedItems } ) => {
     const [activeIndex, setActiveIndex] = useState(0);
-
     const toggleAccordion = (index) => {
         // If the clicked section is already active, close it by setting activeIndex to null
         setActiveIndex(index === activeIndex ? null : index);
     };
+
+    const handleCheckboxChange = (item) => {
+        setCheckedItems((prevCheckedItems) => {
+            
+          if (prevCheckedItems.includes(item)) {
+            // If item is already checked, remove it from the array
+            return prevCheckedItems.filter((i) => i !== item);
+          } else {
+            // If item is not checked, add it to the array
+            return [...prevCheckedItems, item];
+          }
+        });
+      };
+    let [allcategory,setAllcategory] = useState();
+    useEffect(() => {
+        const fetchCategory = async () => {
+          try {
+            const response = await fetch('http://localhost:3000/api/countWithCategory');
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setAllcategory(data);
+          } catch (err) {
+            console.error('Fetch error:', err);
+          }
+        };
+        fetchCategory();
+      }, []);
   return (
     <>
        
         <AccordionSection 
-            title="Section 1" 
+            title={"CATEGORY ("+categoarys+")"}
             index={0} 
             activeIndex={activeIndex} 
             toggleAccordion={toggleAccordion}
         >
             <p>
             <div className="mb-30 filter-options">
-                <div className="custom-control custom-checkbox mb-3">
-                <input type="checkbox" className="custom-control-input" id="Indoor" checked=""/>
-                <label className="custom-control-label" for="Indoor">Indoor</label>
+            {allcategory && allcategory.length > 0 ? (
+                allcategory.map((category, index) => (
+                <div className="form-check mb-3" key={index}>
+                    <input type="checkbox"  checked={checkedItems.includes(category.category_name)} onChange={() => handleCheckboxChange(category.category_name)} name="category[]" value={category.category_name} className="form-check-input mx-2" id={category.category_name} />
+                    <label className="form-check-labe" htmlFor={category.category_name}>{category.category_name}</label>
+                    <div className='badge rounded-pill text-bg-success p-1 mx-2'>{category.TotalProduct}</div>
                 </div>
-                <div className="custom-control custom-checkbox mb-3">
-                <input type="checkbox" className="custom-control-input" id="Outdoor"/>
-                <label className="custom-control-label" for="Outdoor">Outdoor</label>
-                </div>
+                ))
+                ) : (
+                <p>No categories available</p>
+            )}
             </div>
             </p>
         </AccordionSection>
 
         <AccordionSection 
-            title="Section 2" 
-            index={1} 
-            activeIndex={activeIndex} 
-            toggleAccordion={toggleAccordion}
-        >
-            <p>
-            <div className="mb-3 filter-options" id="cusine-options">
-                <div className="custom-control custom-checkbox mb-3">
-                <input type="checkbox" className="custom-control-input" id="Chinese" checked=""/>
-                <label className="custom-control-label" for="Chinese">Chinese</label>
-                </div>
-                <div className="custom-control custom-checkbox mb-3">
-                <input type="checkbox" className="custom-control-input" id="Italian"/>
-                <label className="custom-control-label" for="Italian">Italian</label>
-                </div>
-                <div className="custom-control custom-checkbox mb-3">
-                <input type="checkbox" className="custom-control-input" id="Mexican"/>
-                <label className="custom-control-label" for="Mexican">Mexican</label>
-                </div>
-                <div className="custom-control custom-checkbox mb-3">
-                <input type="checkbox" className="custom-control-input" id="Thai"/>
-                <label className="custom-control-label" for="Thai">Thai</label>
-                </div>
-                <div className="custom-control custom-checkbox mb-3">
-                <input type="checkbox" className="custom-control-input" id="Gujarati"/>
-                <label className="custom-control-label" for="Gujarati">Gujarati</label>
-                </div>
-                <div className="custom-control custom-checkbox mb-3">
-                <input type="checkbox" className="custom-control-input" id="Panjabi"/>
-                <label className="custom-control-label" for="Panjabi">Panjabi</label>
-                </div>
-                <div className="custom-control custom-checkbox mb-3">
-                <input type="checkbox" className="custom-control-input" id="South-Indian"/>
-                <label className="custom-control-label" for="South-Indian">South Indian</label>
-                </div>
-            </div>
-            </p>
-        </AccordionSection>
-
-        <AccordionSection 
-            title="Section 3" 
+            title="PRICE" 
             index={2} 
             activeIndex={activeIndex} 
             toggleAccordion={toggleAccordion}
         >
             <p>
-                <h2 className="font-xbold body-font border-bottom filter-title">Price Range</h2>
                 <div className="mb-3 theme-clr xs2-font d-flex justify-content-between">
                     <span id="slider-range-value1">$100</span>
                     <span id="slider-range-value2">$10,000</span>
@@ -94,42 +84,7 @@ const Categoryfilter = () => {
                     </div>
                 </div>
             </p>
-        </AccordionSection>
-
-        <AccordionSection 
-            title="Section 4" 
-            index={3} 
-            activeIndex={activeIndex} 
-            toggleAccordion={toggleAccordion}
-        >
-            <p>
-            <div className="custom-control custom-checkbox mb-3">
-            <input type="checkbox" className="custom-control-input" id="Breakfast" checked=""/>
-            <label className="custom-control-label" for="Breakfast">Breakfast</label>
-        </div>
-        <div className="custom-control custom-checkbox mb-3">
-            <input type="checkbox" className="custom-control-input" id="Lunch"/>
-            <label className="custom-control-label" for="Lunch">Lunch</label>
-        </div>
-        <div className="custom-control custom-checkbox mb-3">
-            <input type="checkbox" className="custom-control-input" id="Donner"/>
-            <label className="custom-control-label" for="Donner">Donner</label>
-        </div>
-        <div className="custom-control custom-checkbox mb-3">
-            <input type="checkbox" className="custom-control-input" id="Cafe"/>
-            <label className="custom-control-label" for="Cafe">Cafe</label>
-        </div>
-        <div className="custom-control custom-checkbox mb-3">
-            <input type="checkbox" className="custom-control-input" id="Brunch"/>
-            <label className="custom-control-label" for="Brunch">Brunch</label>
-        </div>
-        <div className="custom-control custom-checkbox mb-3">
-            <input type="checkbox" className="custom-control-input" id="other"/>
-            <label className="custom-control-label" for="other">Other</label>
-        </div>
-            </p>
-        </AccordionSection>
-        
+        </AccordionSection> 
     </>
   )
 }

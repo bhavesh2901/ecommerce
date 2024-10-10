@@ -7,7 +7,7 @@ body {
 }
 
 
-.new_footer_top {
+.new_footer_area .new_footer_top {
     padding: 120px 0px 270px;
     position: relative;
       overflow-x: hidden;
@@ -16,58 +16,58 @@ body {
     padding-top: 5px;
     padding-bottom: 50px;
 }
-.footer_bottom {
+.new_footer_area .footer_bottom {
     font-size: 14px;
     font-weight: 300;
     line-height: 20px;
     color: #7f88a6;
     padding: 27px 0px;
 }
-.new_footer_top .company_widget p {
+.new_footer_area .new_footer_top .company_widget p {
     font-size: 16px;
     font-weight: 300;
     line-height: 28px;
     color: #6a7695;
     margin-bottom: 20px;
 }
-.new_footer_top .company_widget .f_subscribe_two .btn_get {
+.new_footer_area .new_footer_top .company_widget .f_subscribe_two .btn_get {
     border-width: 1px;
     margin-top: 20px;
 }
-.btn_get_two:hover {
+.new_footer_area .btn_get_two:hover {
     background: transparent;
     color: #5e2ced;
 }
-.btn_get:hover {
+.new_footer_area .btn_get:hover {
     color: #fff;
     background: #6754e2;
     border-color: #6754e2;
     -webkit-box-shadow: none;
     box-shadow: none;
 }
-a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
+.new_footer_area a:hover,.new_footer_area a:focus,.new_footer_area .btn:hover, .new_footer_area .btn:focus, .new_footer_area button:hover,.new_footer_area button:focus {
     text-decoration: none;
     outline: none;
 }
 
 
 
-.new_footer_top .f_widget.about-widget .f_list li a:hover {
+.new_footer_area .new_footer_top .f_widget.about-widget .f_list li a:hover {
     color: #5e2ced;
 }
-.new_footer_top .f_widget.about-widget .f_list li {
+.new_footer_area .new_footer_top .f_widget.about-widget .f_list li {
     margin-bottom: 11px;
 }
-.f_widget.about-widget .f_list li:last-child {
+.new_footer_area .f_widget.about-widget .f_list li:last-child {
     margin-bottom: 0px;
 }
-.f_widget.about-widget .f_list li {
+.new_footer_area .f_widget.about-widget .f_list li {
     margin-bottom: 15px;
 }
-.f_widget.about-widget .f_list {
+.new_footer_area .f_widget.about-widget .f_list {
     margin-bottom: 0px;
 }
-.new_footer_top .f_social_icon a {
+.new_footer_area .new_footer_top .f_social_icon a {
     width: 44px;
     height: 44px;
     line-height: 43px;
@@ -75,7 +75,7 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
     border: 1px solid #e2e2eb;
     font-size: 24px;
 }
-.f_social_icon a {
+.new_footer_area .f_social_icon a {
     width: 46px;
     height: 46px;
     border-radius: 50%;
@@ -89,20 +89,20 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
     -o-transition: all 0.2s linear;
     transition: all 0.2s linear;
 }
-.ti-facebook:before {
+.new_footer_area .ti-facebook:before {
     content: "\e741";
 }
-.ti-twitter-alt:before {
+.new_footer_area .ti-twitter-alt:before {
     content: "\e74b";
 }
-.ti-vimeo-alt:before {
+.new_footer_area .ti-vimeo-alt:before {
     content: "\e74a";
 }
-.ti-pinterest:before {
+.new_footer_area .ti-pinterest:before {
     content: "\e731";
 }
 
-.btn_get_two {
+.new_footer_area .btn_get_two {
     -webkit-box-shadow: none;
     box-shadow: none;
     background: #5e2ced;
@@ -110,38 +110,38 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
     color: #fff;
 }
 
-.btn_get_two:hover {
+.new_footer_area .btn_get_two:hover {
     background: transparent;
     color: #5e2ced;
 }
 
-.new_footer_top .f_social_icon a:hover {
+.new_footer_area .new_footer_top .f_social_icon a:hover {
     background: #5e2ced;
     border-color: #5e2ced;
   color:white;
 }
-.new_footer_top .f_social_icon a + a {
+.new_footer_area .new_footer_top .f_social_icon a + a {
     margin-left: 4px;
 }
-.new_footer_top .f-title {
+.new_footer_area .new_footer_top .f-title {
     margin-bottom: 30px;
     color: #263b5e;
 }
-.f_600 {
+.new_footer_area .f_600 {
     font-weight: 600;
 }
-.f_size_18 {
+.new_footer_area .f_size_18 {
     font-size: 18px;
 }
-h1, h2, h3, h4, h5, h6 {
+.new_footer_area h1,.new_footer_area h2,.new_footer_area h3,.new_footer_area h4,.new_footer_area h5,.new_footer_area h6 {
     color: #4b505e;
 }
-.new_footer_top .f_widget.about-widget .f_list li a {
+.new_footer_area .new_footer_top .f_widget.about-widget .f_list li a {
     color: #6a7695;
 }
 
 
-.new_footer_top .footer_bg {
+.new_footer_area .new_footer_top .footer_bg {
     position: absolute;
     bottom: 0;
     background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEigB8iI5tb8WSVBuVUGc9UjjB8O0708X7Fdic_4O1LT4CmLHoiwhanLXiRhe82yw0R7LgACQ2IhZaTY0hhmGi0gYp_Ynb49CVzfmXtYHUVKgXXpWvJ_oYT8cB4vzsnJLe3iCwuzj-w6PeYq_JaHmy_CoGoa6nw0FBo-2xLdOPvsLTh_fmYH2xhkaZ-OGQ/s16000/footer_bg.png") no-repeat scroll center 0;
@@ -149,7 +149,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 266px;
 }
 
-.new_footer_top .footer_bg .footer_bg_one {
+.new_footer_area .new_footer_top .footer_bg .footer_bg_one {
     background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEia0PYPxwT5ifToyP3SNZeQWfJEWrUENYA5IXM6sN5vLwAKvaJS1pQVu8mOFFUa_ET4JuHNTFAxKURFerJYHDUWXLXl1vDofYXuij45JZelYOjEFoCOn7E6Vxu0fwV7ACPzArcno1rYuVxGB7JY6G7__e4_KZW4lTYIaHSLVaVLzklZBLZnQw047oq5-Q/s16000/volks.gif") no-repeat center center;
     width: 330px;
     height: 105px;
@@ -161,7 +161,7 @@ h1, h2, h3, h4, h5, h6 {
     animation: myfirst 22s linear infinite;
 }
 
-.new_footer_top .footer_bg .footer_bg_two {
+.new_footer_area .new_footer_top .footer_bg .footer_bg_two {
     background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhyLGwEUVwPK6Vi8xXMymsc-ZXVwLWyXhogZxbcXQYSY55REw_0D4VTQnsVzCrL7nsyjd0P7RVOI5NKJbQ75koZIalD8mqbMquP20fL3DxsWngKkOLOzoOf9sMuxlbyfkIBTsDw5WFUj-YJiI50yzgVjF8cZPHhEjkOP_PRTQXDHEq8AyWpBiJdN9SfQA/s16000/cyclist.gif") no-repeat center center;
     width: 88px;
     height: 100px;
@@ -204,35 +204,35 @@ h1, h2, h3, h4, h5, h6 {
 
 /*************footer End*****************/
 
-#footerCard1
+.new_footer_area #footerCard1
 {
     visibility: visible; 
     animation-delay: 0.2s; 
     animation-name: fadeInLeft;
 }
 
-#footerCard2
+.new_footer_area #footerCard2
 {
     visibility: visible; 
     animation-delay: 0.4s; 
     animation-name: fadeInLeft;
 }
 
-#footerCard3
+.new_footer_area #footerCard3
 {
     visibility: visible; 
     animation-delay: 0.6s; 
     animation-name: fadeInLeft;
 }
 
-#footerCard4
+.new_footer_area #footerCard4
 {
     visibility: visible; 
     animation-delay: 0.8s; 
     animation-name: fadeInLeft;
 }
 
-.mchimp-errmessage , mchimp-sucmessage
+.new_footer_area .mchimp-errmessage , mchimp-sucmessage
 {
     display:  none;
 }

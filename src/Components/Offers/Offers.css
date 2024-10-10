@@ -1,0 +1,28 @@
+.product-slider {
+    width: 400px; /* Custom width */
+    height: 200px; /* Custom height */
+    margin: 0 auto; /* Center the slider */
+  }
+  
+  .productImage img {
+    width: 100%; /* Ensure images take full width */
+    height: auto; /* Maintain aspect ratio */
+  }
+  
+  .productImage h4 {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  .productImage
+  {
+    padding: 0 5px; /* Reduced gap between products */
+    width: 175px !important;
+    display: inline-block;
+    
+  }
+  .slick-slide 
+  {
+    width: 185px !important;
+  }

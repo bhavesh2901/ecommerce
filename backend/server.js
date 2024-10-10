@@ -57,7 +57,7 @@ app.get('/api/AllProducts', (req, res) => {
 });
   
 app.get('/api/Allcategory', (req, res) => {
-  const query = 'SELECT * FROM categories';
+  const query = 'SELECT * FROM categories where status="active"';
   db.query(query, (err, results) => {
     if (err) {
       console.error('Error fetching data:', err);
@@ -68,19 +68,29 @@ app.get('/api/Allcategory', (req, res) => {
   });
 });
 
+app.get('/api/countWithCategory',(req,res)=>{
+  const query ="SELECT c.*, COUNT(p.category_id) AS TotalProduct FROM categories c JOIN products p ON c.id = p.category_id GROUP BY c.id;";
+  db.query(query, (err,results)=>{
+    if(err)
+    {
+      console.error('error fetching data:',err);
+      res.status(500).send('server error');
+      return
+    }
+    res.json(results);
+  });
+})
+
 
 app.get('/api/productscat/:categoarys', (req, res) => {
   const query = `
    SELECT 
     c.*,
-    p.*,
-    pv.*   
+    p.*  
    FROM 
     categories c
    JOIN 
     products p ON c.id = p.category_id
-   JOIN 
-    product_variants pv ON p.id = pv.Product_id
    WHERE 
     c.category_name = ?;
   `;
