@@ -30,9 +30,13 @@
 .mb-30 {
   margin-bottom: 30px;
 }
-.row-grid img{margin-bottom:30px;max-width:100%; width: 400px;
-  height: 400px;
-  border-radius: 36%;}
+.row-grid img{
+  margin-bottom: 30px;
+  max-width: 100%;
+  width: 400px;
+  height: 498px;
+  border-radius: 5px;
+  margin-top: 34px;}
 @media (max-width: 767.98px) {
  .filters-actions {
     position: fixed;

@@ -48,12 +48,12 @@ const Categoryall = () => {
   return (
     <>
       <h5 className='mx-5 mt-5'>FEATURED CATEGORIES</h5>
-      <div className="product-slider mx-5 mt-3 slider-wrapper" style={{ width: '100%', height: '100%', margin: '0 auto' }}>
+      <div className="product-slider allCategorydata mx-5 mt-3 slider-wrapper" style={{ width: '100%', height: '100%', margin: '0 auto' }}>
         {/* Slider buttons */}
         <button onClick={goPrev} className="slider-button prev prev-button btn"><i class="fa-solid fa-angle-left fs-4"></i></button>
         <Slider {...settings} ref={sliderRef}>
           {allcategory.map((product) => (
-            <Link to={'/' + product.category_name} key={product.id}>
+            <Link to={'/Products/' + product.category_name} key={product.id}>
               <div className="productImage slide zoom-effect active" style={{ padding: '4px', width: '175px !important' }}>
                 <img className='rounded-circle' width='200' height='200' src={product.url_slug} alt={product.category_name} />
               </div>

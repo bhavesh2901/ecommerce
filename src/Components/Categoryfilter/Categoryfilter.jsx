@@ -12,12 +12,17 @@ const Categoryfilter = ({categoarys , checkedItems ,setCheckedItems } ) => {
             
           if (prevCheckedItems.includes(item)) {
             // If item is already checked, remove it from the array
+      
             return prevCheckedItems.filter((i) => i !== item);
+        
           } else {
             // If item is not checked, add it to the array
+           
             return [...prevCheckedItems, item];
+     
           }
         });
+    
       };
     let [allcategory,setAllcategory] = useState();
     useEffect(() => {
@@ -37,9 +42,8 @@ const Categoryfilter = ({categoarys , checkedItems ,setCheckedItems } ) => {
       }, []);
   return (
     <>
-       
-        <AccordionSection 
-            title={"CATEGORY ("+categoarys+")"}
+        <AccordionSection  
+            title={"CATEGORY"}
             index={0} 
             activeIndex={activeIndex} 
             toggleAccordion={toggleAccordion}
@@ -48,7 +52,7 @@ const Categoryfilter = ({categoarys , checkedItems ,setCheckedItems } ) => {
             <div className="mb-30 filter-options">
             {allcategory && allcategory.length > 0 ? (
                 allcategory.map((category, index) => (
-                <div className="form-check mb-3" key={index}>
+                <div className="form-check mb-3 text-nowrap" key={index}>
                     <input type="checkbox"  checked={checkedItems.includes(category.category_name)} onChange={() => handleCheckboxChange(category.category_name)} name="category[]" value={category.category_name} className="form-check-input mx-2" id={category.category_name} />
                     <label className="form-check-labe" htmlFor={category.category_name}>{category.category_name}</label>
                     <div className='badge rounded-pill text-bg-success p-1 mx-2'>{category.TotalProduct}</div>
@@ -98,9 +102,9 @@ const AccordionSection = ({ title, index, activeIndex, toggleAccordion, children
     
     return (
       <div className="accordion-section">
-        <h3 className="border-bottom filter-title" onClick={() => toggleAccordion(index)}>
+        <h6 className="border-bottom  shadow-sm p-1 fs-10" onClick={() => toggleAccordion(index)}>
           {title}
-        </h3>
+        </h6>
         <div className={`accordion-content ${isActive ? 'open' : ''}`}>
           {isActive && children}
         </div>

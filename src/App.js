@@ -7,8 +7,12 @@ import Products from "./Pages/Products/Products";
 import Product from "./Components/Product/Product";
 import LoginSignup from "./Pages/LoginSignup/LoginSignup";
 import Profile from "./Components/Profile/Profile";
+import DetailPage from './Pages/DetailPage/DetailPage';
+import Whishlistpage from './Pages/Whishlistpage/Whishlistpage';
+
 
 function App() {
+  let [chekditmes,setChekditems] = useState();
   let [allcategory , setAllcategory] = useState([]);
   useEffect(() => {
     const fetchCategory = async () => {
@@ -28,28 +32,34 @@ function App() {
   }, []);
   return (
     <div>
-      <BrowserRouter>
-        <Navbar/>
-          <Routes>
-              <Route path="/" element={<Landpage/>}/>
-              {allcategory.map(product => (
-                (
-                  <Route path={'/'+product.category_name} element={<Products category={product.category_name}/>}/>
-                )
-              ))}
-              {/* <Route path="/mens" element={<Products category="mens"/>}/>
-              <Route path="/womens" element={<Products category="womens"/>}/>
-              <Route path="/kids" element={<Products category="kids"/>}/> */}
-              <Route path="/LoginSignup" element={<LoginSignup/>}/>
-              <Route path="/product" element={<Product/>}>
-                <Route path=":productID" element={<Product/>} />
-              </Route>
-              <Route path="/profile" element={<Profile/>}>
-                <Route path=":profileID" element={<Profile/>} />
-              </Route>
-          </Routes>
-        <Footer/>
-      </BrowserRouter>
+      <div className='main-content'>
+          <BrowserRouter>
+              <Navbar/>
+                <Routes>
+                    <Route exact path="/" element={<Landpage/>}/>
+                    <Route exact path="/Products/:categories" element={<Products setChekditems={setChekditems} />} />
+                    {/* {
+                      allcategory.map(product => (
+                        (
+                          <Route path={'/Products/'+product.category_name} element={<Products category={product.category_name} setChekditems={setChekditems}/>}/>
+                        )
+                      ))
+                    }
+                    */}
+                    {/* <Route path="/mens" element={<Products category="mens"/>}/>
+                    <Route path="/womens" element={<Products category="womens"/>}/>
+                    <Route path="/kids" element={<Products category="kids"/>}/> */}
+                    <Route exact path="/LoginSignup" element={<LoginSignup/>}/>
+                    <Route exact path="/Detail/:detailId" element={<DetailPage/>}/>
+                    <Route exact path="/profile" element={<Profile/>}>
+                      <Route exact path=":profileID" element={<Profile/>} />
+                    </Route>
+                    <Route exact path="/wishlist/:userid" element={<Whishlistpage/>}/>
+                </Routes>
+              <Footer/>
+          </BrowserRouter>
+      </div>
+    
     </div>
   );
 }

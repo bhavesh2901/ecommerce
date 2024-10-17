@@ -15,7 +15,7 @@
   opacity: 1;
 }
 
- .slider-wrapper {
+.slider-wrapper {
   position: relative;
 }
 
@@ -32,20 +32,20 @@
   right: 26px;
   z-index: 1;
 }
-.slick-list{
+ .slick-list{
   margin-left: 46px !important;
 }
- .zoom-effect {
+.allCategorydata .zoom-effect {
   overflow: hidden;
   width: 300px; /* Adjust based on your image size */
   height: 200px; /* Adjust based on your image size */
 }
 
- .zoom-effect img {
+.allCategorydata .zoom-effect img {
   transition: transform 0.8s ease;
 }
 
- .zoom-effect:hover img {
+.allCategorydata  .zoom-effect:hover img {
   transform: scale(1.1); /* Adjust the zoom level as needed */
   height: 190px;
   width:  190px;
