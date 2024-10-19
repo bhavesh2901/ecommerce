@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import './RelatedProducts.css'
 import axios from 'axios';
 import Wishlist from '../Wishlist/Wishlist';
+import StarRating from '../../Components/Starrating/Starrating';
 
 const RelatedProducts = ({categoryArray}) => {
     let [productbycategory , setProductbycategory] = useState([]);
@@ -61,7 +62,7 @@ const RelatedProducts = ({categoryArray}) => {
                  <div class="col-md-8">
                     <div class="card-body">
                     <h5 class="card-title" style={{fontSize: '10px'}}> <Link  target="_blank" to={`/Detail/`+dataValue.id}  >{dataValue.Product_name}</Link> <div className='float-end' style={{position: 'absolute', top: '6px' ,left: '303px'}}><Wishlist Product_id={dataValue.id}/></div></h5>
-                     <p class="card-text"> <div className="stars d-flex"> <div>&#9733;</div> <div>&#9733;</div> <div>&#9733;</div> <div>&#9733;</div> <div>&#9733;</div> </div></p>
+                     <p class="card-text"> <div className="stars d-flex">  <StarRating rating={dataValue.average_rating} fontsize={'16px'} /> </div></p>
                       <p class="card-text"><small class="text-muted">{dataValue.Price+" ₹"}</small></p>
                     </div>
                   </div>

@@ -102,3 +102,34 @@
     border: none;
     border-bottom: 4px solid purple;
 }
+
+.typewriter {
+    overflow: hidden; /* Ensures text doesn't overflow */
+    border-right: 2px solid; /* Creates the cursor effect */
+    white-space: nowrap; /* Prevents text wrapping */
+    letter-spacing: 0.15em; /* Adjust spacing between letters */
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+  }
+  
+  @keyframes typing {
+    from {
+      width: 0;
+      height: 30px;
+    }
+    to {
+        height: 30px;
+    }
+  }
+  
+  @keyframes blink-caret {
+    from, to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: black;
+    }
+  }
+  .reviewinput::placeholder
+  {
+    font-size: 13px;
+  }

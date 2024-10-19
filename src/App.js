@@ -9,7 +9,8 @@ import LoginSignup from "./Pages/LoginSignup/LoginSignup";
 import Profile from "./Components/Profile/Profile";
 import DetailPage from './Pages/DetailPage/DetailPage';
 import Whishlistpage from './Pages/Whishlistpage/Whishlistpage';
-
+import Checkout from './Pages/Checkout/Checkout';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   let [chekditmes,setChekditems] = useState();
@@ -35,6 +36,7 @@ function App() {
       <div className='main-content'>
           <BrowserRouter>
               <Navbar/>
+              <ToastContainer position="top-right" autoClose={1000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light"  />
                 <Routes>
                     <Route exact path="/" element={<Landpage/>}/>
                     <Route exact path="/Products/:categories" element={<Products setChekditems={setChekditems} />} />
@@ -50,6 +52,7 @@ function App() {
                     <Route path="/womens" element={<Products category="womens"/>}/>
                     <Route path="/kids" element={<Products category="kids"/>}/> */}
                     <Route exact path="/LoginSignup" element={<LoginSignup/>}/>
+                    <Route exact path="/checkout" element={<Checkout/>}/>
                     <Route exact path="/Detail/:detailId" element={<DetailPage/>}/>
                     <Route exact path="/profile" element={<Profile/>}>
                       <Route exact path=":profileID" element={<Profile/>} />

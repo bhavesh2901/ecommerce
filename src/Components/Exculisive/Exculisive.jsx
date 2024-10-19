@@ -1,5 +1,7 @@
 import React from 'react'
 import './Exclulisive.css';
+import StarRating from '../Starrating/Starrating';
+import Wishlist from '../../Components/Wishlist/Wishlist';
 const Exculisive = ({ product }) => {
   return (
     <>
@@ -20,13 +22,11 @@ const Exculisive = ({ product }) => {
             <img src={product.Url_slug}/>
           </div>
           <div className="right-cl">
+          <div className='float-end'><Wishlist Product_id={product.id}/></div>
             <h1>{product.Product_name}</h1>
             <h3>{product.Price+" ₹"}</h3>
             <div className="color-pick">
-              <button className="yellow"></button>
-              <button className="red"></button>
-              <button className="pink"></button>
-              <button className="blue"></button>
+              <StarRating rating={product.average_rating} fontsize={'25px'}  />
             </div>
             <h4>Description</h4>
             <p>{product.Description}</p>

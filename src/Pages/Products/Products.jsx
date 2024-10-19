@@ -32,10 +32,24 @@ const Products = ({  setChekditems }) => {
       navigate(`/Products/${selectedCategories}`);  // Navigate to the dynamic route
     }
   }, [checkedItems, setChekditems, navigate]);
-  return (
-    <div className="accordion container-fluid container-xl mt-5" style={{ height: '711px' }}>
-      <div className="row">
-        <div className="">{categories}</div>
+  console.log(categoryArray);
+      return (
+        <div className="accordion container-fluid container-xl mt-5" style={{ height: '711px' }}>
+          <div className="row mb-2 mx-3">
+            <div className='col-lg-3'></div>
+            <div className="col-lg-9">
+            <div className='overflow-auto mb-1' style={{ whiteSpace: 'nowrap', overflowX: 'auto' }}>
+              {categoryArray.length !== 0 ? (
+                categoryArray.map((item, index) => (
+                  <span className="badge rounded-pill shadow text-bg-light mx-1" key={index}>
+                    {item}
+                  </span>
+                ))
+              ) : (
+                <div></div>
+              )}
+          </div>
+        </div>
       </div>
       <div className="row">
         <div className="col-lg-3 Categoary">

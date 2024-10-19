@@ -45,7 +45,7 @@ app.post('/api/login', (req, res) => {
 });
 
 app.get('/api/AllProducts', (req, res) => {
-  const query = 'SELECT * FROM products';
+  const query = 'SELECT p.*, AVG(r.rating) AS average_rating, COUNT(r.rating) AS review_count FROM products p LEFT JOIN product_ratings r ON r.product_id = p.id GROUP BY p.id';
   db.query(query, (err, results) => {
     if (err) {
       console.error('Error fetching data:', err);
@@ -99,11 +99,13 @@ app.get('/api/product/:detailId', (req, res) => {
   
   const query = `
     SELECT 
-      p.*, c.category_name
+      p.*, c.category_name ,AVG(r.rating) AS average_rating , COUNT(r.rating) AS review_count
   FROM 
       products p
   JOIN 
       categories c ON c.id = p.category_id
+  JOIN 
+      product_ratings r ON r.product_id = p.id
   WHERE 
       p.id = ?;
   `;
@@ -124,13 +126,21 @@ app.get('/api/productscatMulti/:categoarys', (req, res) => {
   
   const query = `
     SELECT 
-      c.*, p.*  
-    FROM 
-      categories c
-    JOIN 
-      products p ON c.id = p.category_id
-    WHERE 
-      c.category_name IN (?);
+    c.*, 
+    p.*, 
+    AVG(r.rating) AS average_rating,
+    COUNT(r.rating) AS review_count
+FROM 
+    categories c
+JOIN 
+    products p ON c.id = p.category_id
+LEFT JOIN 
+    product_ratings r ON r.product_id = p.id
+WHERE 
+    c.category_name IN (?)
+GROUP BY 
+    c.id, p.id;
+
   `;
 
   db.query(query, [categorynames], (err, results) => {
@@ -206,6 +216,49 @@ app.get('/api/watchListProduct/:userid', (req, res) => {
   `;
 
   db.query(query, [userid], (err, results) => {
+    if (err) {
+      console.error('Error fetching data:', err);
+      return res.status(500).send('Server error'); // Properly handle the error response
+    }
+    res.json(results); // Send the results as JSON
+  });
+});
+
+app.post('/api/rate-product', async (req, res) => {
+  const { product_id, user_id, rating , reviewtext } = req.body;
+  const createdAt = new Date();
+
+  try {
+    // Check if the user has already rated this product
+    const existingRating = await db.query('SELECT * FROM product_ratings WHERE product_id = ? AND user_id = ?', [product_id, user_id]);
+
+    if (existingRating.length > 0) {
+      // Update existing rating
+      await db.query('UPDATE product_ratings SET rating = ?, created_at = ? WHERE product_id = ? AND user_id = ?', [rating, createdAt, product_id, user_id , reviewtext]);
+    } else {
+      // Insert new rating
+      await db.query('INSERT INTO product_ratings (product_id, user_id, rating, created_at ,review) VALUES (?, ?, ?, ? ,?)', [product_id, user_id, rating, createdAt , reviewtext]);
+    }
+
+    res.status(200).json({ message: 'Rating saved successfully!' });
+  } catch (error) {
+    console.error('Error saving rating:', error);
+    res.status(500).json({ message: 'Failed to save rating' });
+  }
+});
+
+app.get('/api/reviews/:Product_id', (req, res) => {
+  const categorynames = req.params.Product_id;// Split the string into an array
+  const query = `
+    SELECT 
+      *
+    FROM 
+      product_ratings 
+    WHERE 
+      product_id = ?;
+  `;
+
+  db.query(query, [categorynames], (err, results) => {
     if (err) {
       console.error('Error fetching data:', err);
       return res.status(500).send('Server error'); // Properly handle the error response
