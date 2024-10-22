@@ -1,6 +1,8 @@
+
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
+const crypto = require('crypto');  // Import crypto module to generate random tokens
 
 const app = express();
 const port = 3000;
@@ -24,25 +26,51 @@ db.connect(err => {
   console.log('Connected to MySQL');
 });
 
+// Function to generate a random token
+const generateRandomToken = () => {
+  return crypto.randomBytes(32).toString('hex');  // Generate 32-byte random token
+};
 
+// Login endpoint with token generation
 app.post('/api/login', (req, res) => {
-    const { email, password } = req.body;
-    const query = 'SELECT * FROM users WHERE email = ? AND password = ? AND Status ="active"';
-    db.query(query, [email, password], (err, results) => {
-      if (err) {
-        console.error('Error during login:', err);
-        res.status(500).json({ error: 'Server error' });
-        return;
-      }
-      if (results.length > 0) {
-        // User found, return success response
-        res.json({ message: 'Login successful', user: results });
-      } else {
-        // No user found, return failure response
-        res.status(401).json({ error: 'Invalid credentials' });
-      }
-    });
+  const { email, password } = req.body;
+  
+  // SQL query to select the user
+  const query = 'SELECT * FROM users WHERE email = ? AND password = ? AND Status = "active"';
+  db.query(query, [email, password], (err, results) => {
+    if (err) {
+      console.error('Error during login:', err);
+      return res.status(500).json({ error: 'Server error' });
+    }
+
+    if (results.length > 0) {
+      const user = results[0]; // Get user data
+
+      // Generate a random token
+      const token = generateRandomToken();
+
+      // Save the token in the database for the user
+      const updateTokenQuery = 'UPDATE users SET token = ? WHERE id = ?';
+      db.query(updateTokenQuery, [token, user.id], (err, updateResult) => {
+        if (err) {
+          console.error('Error updating token in database:', err);
+          return res.status(500).json({ error: 'Error updating token' });
+        }
+
+        // Send token and user information back to the client
+        return res.json({
+          message: 'Login successful',
+          user,
+          token
+        });
+      });
+    } else {
+      // No user found, return failure response
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+  });
 });
+
 
 app.get('/api/AllProducts', (req, res) => {
   const query = 'SELECT p.*, AVG(r.rating) AS average_rating, COUNT(r.rating) AS review_count FROM products p LEFT JOIN product_ratings r ON r.product_id = p.id GROUP BY p.id';
@@ -153,10 +181,9 @@ GROUP BY
 });
 
 
-app.get('/api/wishlist/status/:Product_id', (req, res) => {
-  const categorynames = req.params.Product_id;// Split the string into an array
-
-  console.log('Category Names:', categorynames); // Log the category names
+app.get('/api/wishlist/status/:userID/:Product_id', (req, res) => {
+  const categorynames = req.params.Product_id;
+  const userID = req.params.userID;
   
   const query = `
     SELECT 
@@ -164,10 +191,10 @@ app.get('/api/wishlist/status/:Product_id', (req, res) => {
     FROM 
       wishlist 
     WHERE 
-      Product_id = ?;
+      Product_id = ? AND User_id = ?;
   `;
 
-  db.query(query, [categorynames], (err, results) => {
+  db.query(query, [categorynames , userID], (err, results) => {
     if (err) {
       console.error('Error fetching data:', err);
       return res.status(500).send('Server error'); // Properly handle the error response
@@ -179,9 +206,9 @@ app.get('/api/wishlist/status/:Product_id', (req, res) => {
 
 
 app.post('/api/wishlist/add', (req, res) => {
-  const { Product_id, Status } = req.body;
-  const query = 'INSERT INTO wishlist (Product_id, Status) VALUES (?, ?) ON DUPLICATE KEY UPDATE Status = ?';
-  db.query(query, [Product_id, Status, Status], (err, result) => {
+  const { UserID, Product_id, Status } = req.body;
+  const query = 'INSERT INTO wishlist (User_id, Product_id, Status) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE Status = ?';
+  db.query(query, [UserID, Product_id, Status, Status], (err, result) => {
       if (err) {
           return res.status(500).json({ error: err.message });
       }
@@ -191,9 +218,9 @@ app.post('/api/wishlist/add', (req, res) => {
 
 // Remove product from wishlist
 app.post('/api/wishlist/remove', (req, res) => {
-  const { Product_id } = req.body;
-  const query = 'DELETE FROM wishlist WHERE Product_id = ?';
-  db.query(query, [Product_id], (err, result) => {
+  const { Product_id , UserID } = req.body;
+  const query = 'DELETE FROM wishlist WHERE Product_id = ? AND User_id = ?';
+  db.query(query, [Product_id , UserID], (err, result) => {
       if (err) {
           return res.status(500).json({ error: err.message });
       }
@@ -250,12 +277,17 @@ app.post('/api/rate-product', async (req, res) => {
 app.get('/api/reviews/:Product_id', (req, res) => {
   const categorynames = req.params.Product_id;// Split the string into an array
   const query = `
-    SELECT 
-      *
-    FROM 
-      product_ratings 
-    WHERE 
-      product_id = ?;
+ SELECT 
+    r.*, 
+    u.Fullname, 
+    u.Email, 
+    u.profile_image 
+FROM 
+    product_ratings r
+JOIN 
+    users u ON  r.user_id   = u.id
+WHERE 
+    r.product_id = ?;
   `;
 
   db.query(query, [categorynames], (err, results) => {
@@ -264,6 +296,63 @@ app.get('/api/reviews/:Product_id', (req, res) => {
       return res.status(500).send('Server error'); // Properly handle the error response
     }
     res.json(results); // Send the results as JSON
+  });
+});
+
+app.post('/api/signup/add', (req, res) => {
+  const { Role_id, phone, name, signupemail, signuppassword, Status } = req.body;
+
+  // First, check if the email or phone number already exists in the database
+  const checkQuery = 'SELECT * FROM users WHERE Email = ? OR Phone_number = ?';
+  db.query(checkQuery, [signupemail, phone], (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+
+    if (result.length > 0) {
+      // If a user is found with the same email or phone number
+      return res.status(409).json({ message: 'User already exists' });
+    } else {
+      // If no user is found, proceed with the insertion
+      const insertQuery = 'INSERT INTO users (Role_id, Phone_number, Fullname, Email, Password, Status) VALUES (?, ?, ?, ?, ?, ?)';
+      db.query(insertQuery, [Role_id, phone, name, signupemail, signuppassword, Status], (err, result) => {
+        if (err) {
+          return res.status(500).json({ error: err.message });
+        }
+        res.status(200).json({ message: 'You are now registered' });
+      });
+    }
+  });
+});
+
+
+app.get('/api/protected-route', (req, res) => {
+  // Get the token from the Authorization header
+  const token = req.headers.authorization?.split(' ')[1]; // Bearer <token>
+  
+  if (!token) {
+    return res.status(401).json({ error: 'Token is required' });
+  }
+
+  // Query the database to find a user with the matching token
+  const query = 'SELECT * FROM users WHERE token = ?';
+  db.query(query, [token], (err, results) => {
+    if (err) {
+      console.error('Error fetching user with token:', err);
+      return res.status(500).json({ error: 'Server error' });
+    }
+
+    if (results.length > 0) {
+      // Token is valid, return user info
+      const user = results[0];
+      return res.json({
+        message: 'Access granted',
+        user
+      });
+    } else {
+      // Invalid token
+      return res.status(403).json({ error: 'Access denied: Invalid token' });
+    }
   });
 });
 app.listen(port, () => {

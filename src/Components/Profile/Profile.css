@@ -19,14 +19,20 @@ Licensed under MIT
     background: #fff;
   }
   
-  .profile-userpic img {
-    float: none;
-    margin: 0 auto;
-    width: 50%;
-    height: 50%;
-    -webkit-border-radius: 50% !important;
-    -moz-border-radius: 50% !important;
-    border-radius: 50% !important;
+  .profile-userpic  {
+    width: 109px;
+    height: 102px;
+    line-height: 38px;
+    text-align: center;
+    border-radius: 50%;
+    color: #ffffff;
+    background-color: #106AA9;
+    font-size: 50px;
+    font-weight: 700;
+    text-align: center;
+    margin: 10px 94px;
+    display: grid;
+    align-items: center;
   }
   
   .profile-usertitle {
@@ -116,9 +122,9 @@ Licensed under MIT
   
   .profile a, .profile button,.profile code, .profile div, .profile img,.profile input,.profile label,.profile li,.profile p,.profile pre,.profile select,
   .profile span,.profile svg,.profile table,.profile td,.profile textarea,.profile th,.profile ul {
-      -webkit-border-radius: 0!important;
-      -moz-border-radius: 0!important;
-      border-radius: 0!important;
+      /* -webkit-border-radius: 0!important; */
+      /* -moz-border-radius: 0!important; */
+      /* border-radius: 0!important; */
   }
   .dashboard-stat, .portlet {
       -webkit-border-radius: 4px;

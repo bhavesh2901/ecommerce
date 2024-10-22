@@ -2,18 +2,40 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
+import './Giverating.css';
+import { UserProvider , useUser } from '../../UserContext';
 const Giverating = ({ productId, userId ,fetchProducts ,fetchreviews }) => {
   const [rating, setRating] = useState(0);
   const [reviewtext , setReviewtext] = useState('');
   const handleStarClick = async (star) => {
     setRating(star);
   };
+  let initials = '';
+  let UserName = '';
+  let UserID = '';
+  let userEmail = '';
+  let userPhone = '';
+  let userPhoto  = '';
+  const { user } = useUser();
+  if (user) {
+    const nameArray = user['Fullname']?.split(' ');
+     UserID = user['id'];
+     userEmail = user['Email'];
+     userPhone = user['Phone_number'];
+     userPhoto = user['profile_image'];
+    if (nameArray && nameArray.length > 1) {
+        initials = nameArray[0]?.charAt(0) + nameArray[1]?.charAt(0);
+        UserName= nameArray[0];
+        
+    }
+}
   const sendReview = async () => {
     if(rating!='' && reviewtext!=''){
       try {
         await axios.post('http://localhost:3000/api/rate-product', {
           product_id: productId,
-          user_id: userId,
+          user_id: UserID,
           reviewtext : reviewtext,
           rating: rating,
         });
@@ -63,22 +85,30 @@ const Giverating = ({ productId, userId ,fetchProducts ,fetchreviews }) => {
 
   return (
     <div>
-      <section id="testimonials mx-2 shadow">
+      <section id="" className='mx-2 giverrate'>
             {/* <!--testimonials-box-container------> */}
             <div className="testimonial-box-container">
                 {/* <!--BOX-1--------------> */}
-                <div className="testimonial-box p-3">
+                <div className="w-100 p-3" style={{backgroundColor: 'none'}}>
                     {/* <!--top-------------------------> */}
                     <div className="box-top">
                         {/* <!--profile-----> */}
                         <div className="profile">
                             {/* <!--img----> */}
-                            <div className="profile-img">
-                                <img src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png" />
+                            <div className="mx-2">
+                                {
+                                    userPhoto && userPhoto.length !== 0 ? (
+                                        <img src={userPhoto} className='rounded-circle header-profile-user' style={{height: "50px", width: "50px"}} />
+                                    ) : (
+                                        <Link to='/profile'>
+                                            <div className='roundedProfile mt-2'>{initials.toUpperCase()}</div>
+                                        </Link>
+                                    )
+                                }
                             </div>
                             {/* <!--name-and-username--> */}
                             <div className="name-user">
-                                <strong>Liam mendes</strong>
+                                <strong>{UserName}</strong>
                                 {/* <span>@liammendes</span> */}
                             </div>
                         </div>

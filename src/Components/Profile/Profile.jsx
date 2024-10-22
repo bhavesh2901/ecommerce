@@ -1,27 +1,53 @@
 import React from 'react'
 import  './Profile.css';
-
+import { UserProvider  ,useUser} from '../../UserContext';
+import { useNavigate } from 'react-router-dom';
 const Profile = () => {
+    const navigate = useNavigate();
+    let UserName = '';
+    let initials = '';
+    let UserID = '';
+    let userEmail = '';
+    let userPhone = '';
+    const { user } = useUser();
+    if (user) {
+        const nameArray = user['Fullname']?.split(' ');
+         UserID = user['id'];
+         userEmail = user['Email'];
+         userPhone = user['Phone_number'];
+        if (nameArray && nameArray.length > 1) {
+            initials = nameArray[0]?.charAt(0) + nameArray[1]?.charAt(0);
+            UserName= user['Fullname'];
+            
+        }
+    }
+    else
+    {
+        navigate('/LoginSignup');
+    }
+
+    
   return (
     <>
+   
         <div className="container">
             <div className="row profile">
                 <div className="col-md-3">
                     <div className="profile-sidebar">
                         <div className="profile-userpic">
-                            <img src="https://gravatar.com/avatar/31b64e4876d603ce78e04102c67d6144?s=80&d=https://codepen.io/assets/avatars/user-avatar-80x80-bdcd44a3bfb9a5fd01eb8b86f9e033fa1a9897c3a15b33adfc2649a002dab1b6.png" className="img-responsive" alt=""/>
+                            {initials.toUpperCase()}
                         </div>
                         <div className="profile-usertitle">
                             <div className="profile-usertitle-name">
-                                Jason Davis
+                                {UserName}
                             </div>
                             <div className="profile-usertitle-job">
-                                Developer
+                                {userEmail}
                             </div>
                         </div>
                         <div className="profile-userbuttons">
-                            <button type="button" className="btn btn-success btn-sm">Follow</button>
-                            <button type="button" className="btn btn-danger btn-sm">Message</button>
+                            <button type="button" className="btn btn-success btn-sm">Wish List</button>
+                            <button type="button" className="btn btn-danger btn-sm">$100000</button>
                         </div>
                         <div className="profile-usermenu">
                             <ul className="nav">

@@ -8,11 +8,13 @@ import StarRating from '../../Components/Starrating/Starrating';
 import reviews from '../../Components/Assests/reviews.avif';
 import Reviewslist from '../../Components/Reviewslist/Reviewslist';
 import Giverating from '../../Components/Giverating/Giverating';
-
+import { UserProvider , useUser } from '../../UserContext';
+import ReactImageMagnify from 'react-image-magnify';
 const DetailPage = () => {
   const { detailId } = useParams();
   const [product , setProduct] = useState([]);
   const [Reviews , setReviews] = useState([]);
+  const { user } = useUser();
 
     const fetchProducts = async () => {
       try {
@@ -30,7 +32,6 @@ const DetailPage = () => {
         // Make API request based on selected categories
         const response = await axios.get(`http://localhost:3000/api/reviews/${detailId}`);
         setReviews(response.data);
-        console.log(response);
         } catch (error) {
         console.error('Error fetching products:', error);
         }
@@ -54,14 +55,31 @@ const DetailPage = () => {
                 <div className="col-md-7">
                     <div className="row">
                         <div className="col-md-2 mini-preview">
-                            {/* <img className="img-fluid" src="https://cdn.pixabay.com/photo/2015/07/24/18/40/model-858754_960_720.jpg" alt="Preview"/>
-                            <img className="img-fluid" src="https://cdn.pixabay.com/photo/2015/07/24/18/38/model-858749_960_720.jpg" alt="Preview"/>
-                            <img className="img-fluid" src="https://cdn.pixabay.com/photo/2015/07/24/18/39/model-858751_960_720.jpg" alt="Preview"/>
-                            <img className="img-fluid" src="https://cdn.pixabay.com/photo/2015/07/24/18/37/model-858748_960_720.jpg" alt="Preview"/> */}
+                            <img className="img-fluid" src={product[0].Url_slug} alt="Preview"/>
+                            <img className="img-fluid" src={product[0].Url_slug} alt="Preview"/>
+                            <img className="img-fluid" src={product[0].Url_slug} alt="Preview"/>
+                            <img className="img-fluid" src={product[0].Url_slug} alt="Preview"/>
                         </div>
                         <div className="col-md-10">
                             <div className="product-image">
-                                <img className="img-fluid" src={product[0].Url_slug} alt="Main Image"/>
+                                <ReactImageMagnify
+                                    {...{
+                                    smallImage: {
+                                        alt: 'Main Image',
+                                        isFluidWidth: true,
+                                        src: product[0].Url_slug
+                                    },
+                                    largeImage: {
+                                        src: product[0].Url_slug, 
+                                        width: 673,               
+                                        height: 600,             
+                                    },
+                                    enlargedImageContainerDimensions: {
+                                        width: '50%',            
+                                        height: '50%',
+                                    },
+                                    }}
+                                />
                             </div>
 
                         </div>
@@ -119,33 +137,16 @@ const DetailPage = () => {
                         </div>
                     </div>
                     <div className="tab-pane container fade" id="menu1">
-                    <div onClick={() => { fetchProducts(); fetchreviews(); } } > <Giverating productId={detailId}  userId={1} fetchProducts={fetchProducts}  fetchreviews={fetchreviews} /></div>
-                        {/* <section id="testimonials mx-2 shadow">
-                            <div className="testimonial-box-container">
-                                <div className="testimonial-box p-3">
-                                    <div className="box-top">
-                                        <div className="profile">
-                                            <div className="profile-img">
-                                                <img src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png" />
-                                            </div>
-                                            <div className="name-user">
-                                                <strong>Liam mendes</strong>
-                                            </div>
-                                        </div>
-                                        <div className="reviews">
-                                            <div onClick={() => { fetchProducts(); fetchreviews(); } } > <Giverating productId={detailId}  userId={1} reviewtext={reviewtext} /></div>
-                                        </div>
-                                    </div>
-                                    <div className="client-comment" style={{textAlign: 'left'}}>
-                                        <div className='row mb-2'>
-                                            <div className='col-lg-11'><input onChange={e=>setReviewtext(e.target.value)} className='form-control shadow reviewinput' placeholder='Write reviews..'/></div>
-                                            <div className='col-lg-1'><button  className='btn btn-primary float-end'>send</button></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section> */}
-                      
+                    <div onClick={() => { fetchProducts(); fetchreviews(); } } > 
+                        {
+                            user? 
+                            (<Giverating productId={detailId}  userId={1} fetchProducts={fetchProducts}  fetchreviews={fetchreviews} />)
+                            :
+                            (
+                            <div></div>
+                            )
+                        }
+                        </div>
                         {Reviews.length !== 0 ? (
                                 <div className="review overflow-auto" style={{ height: '337px' }}>
                                     {Reviews.map((item, index) => (
@@ -162,8 +163,6 @@ const DetailPage = () => {
                                     </div> */}
                                 </div>
                             )}
-
-                     
                     </div>
                 </div>
             </div>
