@@ -63,22 +63,28 @@ const DetailPage = () => {
                         <div className="col-md-10">
                             <div className="product-image">
                                 <ReactImageMagnify
-                                    {...{
-                                    smallImage: {
-                                        alt: 'Main Image',
-                                        isFluidWidth: true,
-                                        src: product[0].Url_slug
-                                    },
-                                    largeImage: {
-                                        src: product[0].Url_slug, 
-                                        width: 673,               
-                                        height: 600,             
-                                    },
-                                    enlargedImageContainerDimensions: {
-                                        width: '50%',            
-                                        height: '50%',
-                                    },
-                                    }}
+                                        {...{
+                                            smallImage: {
+                                                alt: 'Main Image',
+                                                isFluidWidth: true,
+                                                src: product[0].Url_slug,
+                                                style: { borderRadius: '10px' } // Optional: round corners
+                                            },
+                                            largeImage: {
+                                                src: product[0].Url_slug,
+                                                width: 600,
+                                                height: 700,
+                                                style: { borderRadius: '10px' }
+                                            },
+                                            enlargedImageContainerDimensions: {
+                                                width: '50%',
+                                                height: '50%',
+                                            },
+                                            shouldUsePositiveSpaceLens: true, // Move this here
+                                            lensStyle: { backgroundColor: 'rgba(255, 255, 255, 0.3)', borderRadius: '50%' }, // Move this here
+                                            enlargedImagePosition: 'beside' , // Move this here
+                                        }}
+                                    />
                                 />
                             </div>
 

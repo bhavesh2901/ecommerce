@@ -1,0 +1,43 @@
+/* Loading Animation */
+@keyframes animate {
+    0% {
+      background-position: -468px 0;
+    }
+    100% {
+      background-position: 468px 0;
+    }
+  }
+  
+  .productLoader {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    grid-gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    list-style: none;
+  }
+  
+  .productLi {
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, .2);
+    display: grid;
+    grid-gap: 15px;
+    grid-template-rows: 190px 30px 30px 30px;
+    justify-items: center;
+    padding: 10px;
+  }
+  
+  span.proimg{
+    animation-name: animate;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+    background-color: #CCC;
+    background-size: 800px 100px;
+    width: 100%;
+  }
+  
+
+  
+ 
+  

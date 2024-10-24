@@ -22,7 +22,13 @@
 .product-image img
 {
     height: 600px !important;
-    width: 573px !important;
+    width: 550px !important;
+}
+
+.product-image 
+{
+    height: 600px !important;
+    width: 550px !important;
 }
 .details-snippet1 .price {
     font-weight: bold;

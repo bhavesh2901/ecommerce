@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Wishlist from '../../Components/Wishlist/Wishlist';
-import nodatafound from '../../Components/Assests/nodataat.jpg';
+import nodatafound from '../../Components/Assests/emptywishlist.jpg';
 import { Link } from 'react-router-dom';
 const Whishlistpage = () => {
     const [watchListPro , setWatchListPro ] = useState([]);
@@ -99,7 +99,7 @@ const Whishlistpage = () => {
                             ))
                         ) : (
                             
-                            <img src={nodatafound} alt="No data found" />
+                            <center><img src={nodatafound} alt="No data found" /></center>
                         )}
                     </div>
                  

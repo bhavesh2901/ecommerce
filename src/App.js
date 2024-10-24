@@ -12,6 +12,9 @@ import Whishlistpage from './Pages/Whishlistpage/Whishlistpage';
 import Checkout from './Pages/Checkout/Checkout';
 import { ToastContainer } from 'react-toastify';
 import { UserProvider , useUser} from './UserContext';
+import Loader from './Components/Loader/Loader';
+import Cart from './Pages/Cart/Cart';
+import Helppage from './Pages/Helppage/Helppage';
 
 function App() {
   const [chekditmes, setChekditems] = useState();
@@ -73,6 +76,7 @@ const UserConsumer = ({ setChekditems, setAllcategory }) => {
 
   return (
     <BrowserRouter>
+
       <ConditionalNavbar />
       <ToastContainer position="top-right" autoClose={1000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
       <Routes>
@@ -80,6 +84,8 @@ const UserConsumer = ({ setChekditems, setAllcategory }) => {
         <Route exact path="/Products/:categories" element={<Products setChekditems={setChekditems} />} />
         <Route exact path="/LoginSignup" element={<LoginSignup />} />
         <Route exact path="/checkout/:userID" element={<Checkout />} />
+        <Route exact path="/Cart/:Userid" element={<Cart/>} />
+        <Route exact path="/help" element={<Helppage/>} />
         <Route exact path="/Detail/:detailId" element={<DetailPage />} />
         <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/wishlist/:userid" element={<Whishlistpage />} />

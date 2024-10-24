@@ -2,6 +2,7 @@ import React from 'react'
 import './Exclulisive.css';
 import StarRating from '../Starrating/Starrating';
 import Wishlist from '../../Components/Wishlist/Wishlist';
+import { Link } from 'react-router-dom';
 const Exculisive = ({ product }) => {
   return (
     <>
@@ -23,7 +24,7 @@ const Exculisive = ({ product }) => {
           </div>
           <div className="right-cl">
           <div className='float-end'><Wishlist Product_id={product.id}/></div>
-            <h1>{product.Product_name}</h1>
+            <h1>  <Link to={`/Detail/`+product.id}><div className='text-secondary'>{product.Product_name}</div></Link></h1>
             <h3>{product.Price+" ₹"}</h3>
             <div className="color-pick">
               <StarRating rating={product.average_rating} fontsize={'25px'}  />

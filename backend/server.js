@@ -204,6 +204,28 @@ app.get('/api/wishlist/status/:userID/:Product_id', (req, res) => {
 });
 
 
+app.get('/api/Cart/status/:userID/:Product_id', (req, res) => {
+  const categorynames = req.params.Product_id;
+  const userID = req.params.userID;
+  
+  const query = `
+    SELECT 
+      Status
+    FROM 
+      carts 
+    WHERE 
+      Product_id = ? AND User_id = ?;
+  `;
+
+  db.query(query, [categorynames , userID], (err, results) => {
+    if (err) {
+      console.error('Error fetching data:', err);
+      return res.status(500).send('Server error'); // Properly handle the error response
+    }
+    res.json(results); // Send the results as JSON
+  });
+});
+
 
 app.post('/api/wishlist/add', (req, res) => {
   const { UserID, Product_id, Status } = req.body;
@@ -216,6 +238,18 @@ app.post('/api/wishlist/add', (req, res) => {
   });
 });
 
+app.post('/api/cart/add', (req, res) => {
+  const { UserID, Product_id, Quantity ,Status } = req.body;
+  const query = 'INSERT INTO carts (User_id, Product_id, Quantity ,Status) VALUES (?, ?, ? ,?) ON DUPLICATE KEY UPDATE Status = ?';
+  db.query(query, [UserID, Product_id, Quantity ,Status , Status], (err, result) => {
+      if (err) {
+          return res.status(500).json({ error: err.message });
+      }
+      res.status(200).json({ message: 'Product added to Cart' });
+  });
+});
+
+
 // Remove product from wishlist
 app.post('/api/wishlist/remove', (req, res) => {
   const { Product_id , UserID } = req.body;
@@ -225,6 +259,18 @@ app.post('/api/wishlist/remove', (req, res) => {
           return res.status(500).json({ error: err.message });
       }
       res.status(200).json({ message: 'Product removed from wishlist' });
+  });
+});
+
+// Remove product from cart
+app.post('/api/cart/remove', (req, res) => {
+  const { Product_id , UserID } = req.body;
+  const query = 'DELETE FROM carts WHERE Product_id = ? AND User_id = ?';
+  db.query(query, [Product_id , UserID], (err, result) => {
+      if (err) {
+          return res.status(500).json({ error: err.message });
+      }
+      res.status(200).json({ message: 'Product removed from Cart' });
   });
 });
 
@@ -240,6 +286,29 @@ app.get('/api/watchListProduct/:userid', (req, res) => {
       products p ON  p.id =  w.Product_id
   WHERE 
       w.User_id = ?;
+  `;
+
+  db.query(query, [userid], (err, results) => {
+    if (err) {
+      console.error('Error fetching data:', err);
+      return res.status(500).send('Server error'); // Properly handle the error response
+    }
+    res.json(results); // Send the results as JSON
+  });
+});
+
+
+app.get('/api/CartProduct/:userid', (req, res) => {
+  const userid = req.params.userid;// Split the string into an array
+  const query = `
+    SELECT 
+      p.* , c.Quantity
+  FROM 
+       carts c
+  JOIN 
+      products p ON  p.id =  c.Product_id
+  WHERE 
+      c.User_id = ?;
   `;
 
   db.query(query, [userid], (err, results) => {

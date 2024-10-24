@@ -1,0 +1,246 @@
+// Import Bootstrap functions and variables first
+@import 'node_modules/bootstrap/scss/functions';
+@import 'node_modules/bootstrap/scss/variables';
+
+// Add custom colors to the theme
+$colors: (
+  // Blue
+  "blue":       $blue,
+
+  // Indigo
+  "indigo1":     $indigo-100,
+  "indigo2":     $indigo-200,
+  "indigo3":     $indigo-300,
+  "indigo4":     $indigo-400,
+  "indigo5":     $indigo-500,
+  "indigo6":     $indigo-600,
+  "indigo7":     $indigo-700,
+  "indigo8":     $indigo-800,
+  "indigo9":     $indigo-900,
+
+  // Purple
+  "purple1":     $purple-100,
+  "purple2":     $purple-200,
+  "purple3":     $purple-300,
+  "purple4":     $purple-400,
+  "purple5":     $purple-500,
+  "purple6":     $purple-600,
+  "purple7":     $purple-700,
+  "purple8":     $purple-800,
+  "purple9":     $purple-900,
+
+  // Pink
+  "pink1":       $pink-100,
+  "pink2":       $pink-200,
+  "pink3":       $pink-300,
+  "pink4":       $pink-400,
+  "pink5":       $pink-500,
+  "pink6":       $pink-600,
+  "pink7":       $pink-700,
+  "pink8":       $pink-800,
+  "pink9":       $pink-900,
+
+  // Red
+  "red1":        $red-100,
+  "red2":        $red-200,
+  "red3":        $red-300,
+  "red4":        $red-400,
+  "red5":        $red-500,
+  "red6":        $red-600,
+  "red7":        $red-700,
+  "red8":        $red-800,
+  "red9":        $red-900,
+
+  // Orange
+  "orange1":     $orange-100,
+  "orange2":     $orange-200,
+  "orange3":     $orange-300,
+  "orange4":     $orange-400,
+  "orange5":     $orange-500,
+  "orange6":     $orange-600,
+  "orange7":     $orange-700,
+  "orange8":     $orange-800,
+  "orange9":     $orange-900,
+
+  // Yellow
+  "yellow1":     $yellow-100,
+  "yellow2":     $yellow-200,
+  "yellow3":     $yellow-300,
+  "yellow4":     $yellow-400,
+  "yellow5":     $yellow-500,
+  "yellow6":     $yellow-600,
+  "yellow7":     $yellow-700,
+  "yellow8":     $yellow-800,
+  "yellow9":     $yellow-900,
+
+  // Green
+  "green1":      $green-100,
+  "green2":      $green-200,
+  "green3":      $green-300,
+  "green4":      $green-400,
+  "green5":      $green-500,
+  "green6":      $green-600,
+  "green7":      $green-700,
+  "green8":      $green-800,
+  "green9":      $green-900,
+
+  // Teal
+  "teal1":       $teal-100,
+  "teal2":       $teal-200,
+  "teal3":       $teal-300,
+  "teal4":       $teal-400,
+  "teal5":       $teal-500,
+  "teal6":       $teal-600,
+  "teal7":       $teal-700,
+  "teal8":       $teal-800,
+  "teal9":       $teal-900,
+
+  // Cyan
+  "cyan1":       $cyan-100,
+  "cyan2":       $cyan-200,
+  "cyan3":       $cyan-300,
+  "cyan4":       $cyan-400,
+  "cyan5":       $cyan-500,
+  "cyan6":       $cyan-600,
+  "cyan7":       $cyan-700,
+  "cyan8":       $cyan-800,
+  "cyan9":       $cyan-900,
+
+  // Gray
+  "gray1":       $gray-100,
+  "gray2":       $gray-200,
+  "gray3":       $gray-300,
+  "gray4":       $gray-400,
+  "gray5":       $gray-500,
+  "gray6":       $gray-600,
+  "gray7":       $gray-700,
+  "gray8":       $gray-800,
+  "gray9":       $gray-900,
+
+  // White
+  "white":       $white
+);
+
+// Merge the custom colors with the theme
+$theme-colors: map-merge($theme-colors, $colors);
+
+// Define custom classes for background colors
+// Blue
+.bg-blue { background-color: map-get($theme-colors, 'blue') !important; }
+
+// Indigo
+.bg-indigo-100 { background-color: map-get($theme-colors, 'indigo1') !important; }
+.bg-indigo-200 { background-color: map-get($theme-colors, 'indigo2') !important; }
+.bg-indigo-300 { background-color: map-get($theme-colors, 'indigo3') !important; }
+.bg-indigo-400 { background-color: map-get($theme-colors, 'indigo4') !important; }
+.bg-indigo-500 { background-color: map-get($theme-colors, 'indigo5') !important; }
+.bg-indigo-600 { background-color: map-get($theme-colors, 'indigo6') !important; }
+.bg-indigo-700 { background-color: map-get($theme-colors, 'indigo7') !important; }
+.bg-indigo-800 { background-color: map-get($theme-colors, 'indigo8') !important; }
+.bg-indigo-900 { background-color: map-get($theme-colors, 'indigo9') !important; }
+
+// Purple
+.bg-purple-100 { background-color: map-get($theme-colors, 'purple1') !important; }
+.bg-purple-200 { background-color: map-get($theme-colors, 'purple2') !important; }
+.bg-purple-300 { background-color: map-get($theme-colors, 'purple3') !important; }
+.bg-purple-400 { background-color: map-get($theme-colors, 'purple4') !important; }
+.bg-purple-500 { background-color: map-get($theme-colors, 'purple5') !important; }
+.bg-purple-600 { background-color: map-get($theme-colors, 'purple6') !important; }
+.bg-purple-700 { background-color: map-get($theme-colors, 'purple7') !important; }
+.bg-purple-800 { background-color: map-get($theme-colors, 'purple8') !important; }
+.bg-purple-900 { background-color: map-get($theme-colors, 'purple9') !important; }
+
+// Pink
+.bg-pink-100 { background-color: map-get($theme-colors, 'pink1') !important; }
+.bg-pink-200 { background-color: map-get($theme-colors, 'pink2') !important; }
+.bg-pink-300 { background-color: map-get($theme-colors, 'pink3') !important; }
+.bg-pink-400 { background-color: map-get($theme-colors, 'pink4') !important; }
+.bg-pink-500 { background-color: map-get($theme-colors, 'pink5') !important; }
+.bg-pink-600 { background-color: map-get($theme-colors, 'pink6') !important; }
+.bg-pink-700 { background-color: map-get($theme-colors, 'pink7') !important; }
+.bg-pink-800 { background-color: map-get($theme-colors, 'pink8') !important; }
+.bg-pink-900 { background-color: map-get($theme-colors, 'pink9') !important; }
+
+// Red
+.bg-red-100 { background-color: map-get($theme-colors, 'red1') !important; }
+.bg-red-200 { background-color: map-get($theme-colors, 'red2') !important; }
+.bg-red-300 { background-color: map-get($theme-colors, 'red3') !important; }
+.bg-red-400 { background-color: map-get($theme-colors, 'red4') !important; }
+.bg-red-500 { background-color: map-get($theme-colors, 'red5') !important; }
+.bg-red-600 { background-color: map-get($theme-colors, 'red6') !important; }
+.bg-red-700 { background-color: map-get($theme-colors, 'red7') !important; }
+.bg-red-800 { background-color: map-get($theme-colors, 'red8') !important; }
+.bg-red-900 { background-color: map-get($theme-colors, 'red9') !important; }
+
+// Orange
+.bg-orange-100 { background-color: map-get($theme-colors, 'orange1') !important; }
+.bg-orange-200 { background-color: map-get($theme-colors, 'orange2') !important; }
+.bg-orange-300 { background-color: map-get($theme-colors, 'orange3') !important; }
+.bg-orange-400 { background-color: map-get($theme-colors, 'orange4') !important; }
+.bg-orange-500 { background-color: map-get($theme-colors, 'orange5') !important; }
+.bg-orange-600 { background-color: map-get($theme-colors, 'orange6') !important; }
+.bg-orange-700 { background-color: map-get($theme-colors, 'orange7') !important; }
+.bg-orange-800 { background-color: map-get($theme-colors, 'orange8') !important; }
+.bg-orange-900 { background-color: map-get($theme-colors, 'orange9') !important; }
+
+// Yellow
+.bg-yellow-100 { background-color: map-get($theme-colors, 'yellow1') !important; }
+.bg-yellow-200 { background-color: map-get($theme-colors, 'yellow2') !important; }
+.bg-yellow-300 { background-color: map-get($theme-colors, 'yellow3') !important; }
+.bg-yellow-400 { background-color: map-get($theme-colors, 'yellow4') !important; }
+.bg-yellow-500 { background-color: map-get($theme-colors, 'yellow5') !important; }
+.bg-yellow-600 { background-color: map-get($theme-colors, 'yellow6') !important; }
+.bg-yellow-700 { background-color: map-get($theme-colors, 'yellow7') !important; }
+.bg-yellow-800 { background-color: map-get($theme-colors, 'yellow8') !important; }
+.bg-yellow-900 { background-color: map-get($theme-colors, 'yellow9') !important; }
+
+// Green
+.bg-green-100 { background-color: map-get($theme-colors, 'green1') !important; }
+.bg-green-200 { background-color: map-get($theme-colors, 'green2') !important; }
+.bg-green-300 { background-color: map-get($theme-colors, 'green3') !important; }
+.bg-green-400 { background-color: map-get($theme-colors, 'green4') !important; }
+.bg-green-500 { background-color: map-get($theme-colors, 'green5') !important; }
+.bg-green-600 { background-color: map-get($theme-colors, 'green6') !important; }
+.bg-green-700 { background-color: map-get($theme-colors, 'green7') !important; }
+.bg-green-800 { background-color: map-get($theme-colors, 'green8') !important; }
+.bg-green-900 { background-color: map-get($theme-colors, 'green9') !important; }
+
+// Teal
+.bg-teal-100 { background-color: map-get($theme-colors, 'teal1') !important; }
+.bg-teal-200 { background-color: map-get($theme-colors, 'teal2') !important; }
+.bg-teal-300 { background-color: map-get($theme-colors, 'teal3') !important; }
+.bg-teal-400 { background-color: map-get($theme-colors, 'teal4') !important; }
+.bg-teal-500 { background-color: map-get($theme-colors, 'teal5') !important; }
+.bg-teal-600 { background-color: map-get($theme-colors, 'teal6') !important; }
+.bg-teal-700 { background-color: map-get($theme-colors, 'teal7') !important; }
+.bg-teal-800 { background-color: map-get($theme-colors, 'teal8') !important; }
+.bg-teal-900 { background-color: map-get($theme-colors, 'teal9') !important; }
+
+// Cyan
+.bg-cyan-100 { background-color: map-get($theme-colors, 'cyan1') !important; }
+.bg-cyan-200 { background-color: map-get($theme-colors, 'cyan2') !important; }
+.bg-cyan-300 { background-color: map-get($theme-colors, 'cyan3') !important; }
+.bg-cyan-400 { background-color: map-get($theme-colors, 'cyan4') !important; }
+.bg-cyan-500 { background-color: map-get($theme-colors, 'cyan5') !important; }
+.bg-cyan-600 { background-color: map-get($theme-colors, 'cyan6') !important; }
+.bg-cyan-700 { background-color: map-get($theme-colors, 'cyan7') !important; }
+.bg-cyan-800 { background-color: map-get($theme-colors, 'cyan8') !important; }
+.bg-cyan-900 { background-color: map-get($theme-colors, 'cyan9') !important; }
+
+// Gray
+.bg-gray-100 { background-color: map-get($theme-colors, 'gray1') !important; }
+.bg-gray-200 { background-color: map-get($theme-colors, 'gray2') !important; }
+.bg-gray-300 { background-color: map-get($theme-colors, 'gray3') !important; }
+.bg-gray-400 { background-color: map-get($theme-colors, 'gray4') !important; }
+.bg-gray-500 { background-color: map-get($theme-colors, 'gray5') !important; }
+.bg-gray-600 { background-color: map-get($theme-colors, 'gray6') !important; }
+.bg-gray-700 { background-color: map-get($theme-colors, 'gray7') !important; }
+.bg-gray-800 { background-color: map-get($theme-colors, 'gray8') !important; }
+.bg-gray-900 { background-color: map-get($theme-colors, 'gray9') !important; }
+
+// White
+.bg-white { background-color: map-get($theme-colors, 'white') !important; }
+
+
+// Import Bootstrap to apply the changes
+@import 'node_modules/bootstrap/scss/bootstrap';

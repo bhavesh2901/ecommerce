@@ -5,7 +5,7 @@ body{
 }
 /*----------bootstrap-navbar-css------------*/
 .navbar-logo{
-	padding: 15px;
+	padding: 6px;
 	color: #fff;
 }
 .navbar-mainbg{
@@ -25,8 +25,7 @@ body{
 #navbarSupportedContent li {
 	list-style-type: none;
 	float: left;
-	border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
+
 }
 #navbarSupportedContent ul li a{
 	color: black;
