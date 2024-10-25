@@ -72,7 +72,7 @@ const Whishlistpage = () => {
                                                 <div className="text-lg-end">
                                                     <p className="text-muted mb-1">Item Price:</p>
                                                     <h5 className="fs-14">₹ <span id="ticket_price" className="product-price">{item.Price}</span></h5>
-                                                    <button className='btn btn-success  btn-sm mt-5'><i class="fa-solid fa-cart-shopping"></i> Add</button>
+                                                    <button className='btn btn-success  btn-sm mt-5'><i className="fa-solid fa-cart-shopping"></i> Add</button>
                                                 </div>
                                             </div>
                                         </div>

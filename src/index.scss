@@ -5,7 +5,15 @@
 // Add custom colors to the theme
 $colors: (
   // Blue
-  "blue":       $blue,
+  "blue1":     $blue-100,
+  "blue2":     $blue-200,
+  "blue3":     $blue-300,
+  "blue4":     $blue-400,
+  "blue5":     $blue-500,
+  "blue6":     $blue-600,
+  "blue7":     $blue-700,
+  "blue8":     $blue-800,
+  "blue9":     $blue-900,
 
   // Indigo
   "indigo1":     $indigo-100,
@@ -125,8 +133,7 @@ $colors: (
 $theme-colors: map-merge($theme-colors, $colors);
 
 // Define custom classes for background colors
-// Blue
-.bg-blue { background-color: map-get($theme-colors, 'blue') !important; }
+
 
 // Indigo
 .bg-indigo-100 { background-color: map-get($theme-colors, 'indigo1') !important; }
@@ -138,6 +145,17 @@ $theme-colors: map-merge($theme-colors, $colors);
 .bg-indigo-700 { background-color: map-get($theme-colors, 'indigo7') !important; }
 .bg-indigo-800 { background-color: map-get($theme-colors, 'indigo8') !important; }
 .bg-indigo-900 { background-color: map-get($theme-colors, 'indigo9') !important; }
+
+//blue
+.bg-blue-100 { background-color: map-get($theme-colors, 'blue1') !important; }
+.bg-blue-200 { background-color: map-get($theme-colors, 'blue2') !important; }
+.bg-blue-300 { background-color: map-get($theme-colors, 'blue3') !important; }
+.bg-blue-400 { background-color: map-get($theme-colors, 'blue4') !important; }
+.bg-blue-500 { background-color: map-get($theme-colors, 'blue5') !important; }
+.bg-blue-600 { background-color: map-get($theme-colors, 'blue6') !important; }
+.bg-blue-700 { background-color: map-get($theme-colors, 'blue7') !important; }
+.bg-blue-800 { background-color: map-get($theme-colors, 'blue8') !important; }
+.bg-blue-900 { background-color: map-get($theme-colors, 'blue9') !important; }
 
 // Purple
 .bg-purple-100 { background-color: map-get($theme-colors, 'purple1') !important; }

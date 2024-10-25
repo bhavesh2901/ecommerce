@@ -6,7 +6,29 @@ const crypto = require('crypto');  // Import crypto module to generate random to
 
 const app = express();
 const port = 3000;
+const path = require('path');
+const multer = require('multer');
+const fs = require('fs');
 
+const dir = path.resolve(__dirname, '..', 'public', 'Assets', 'userProfile');
+
+// Create the destination directory if it doesn't exist
+if (!fs.existsSync(dir)) {
+  fs.mkdirSync(dir, { recursive: true });
+}
+
+// Configure multer for storage and filename handling
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, dir); // Use the absolute path for the destination
+  },
+  filename: (req, file, cb) => {
+    const newFilename = `${req.params.userid}.jpg`; // Save as JPG format
+    cb(null, newFilename); // Save the file with the new filename
+  },
+});
+
+const upload = multer({ storage }); 
 app.use(cors());
 app.use(express.json());
 
@@ -424,6 +446,28 @@ app.get('/api/protected-route', (req, res) => {
     }
   });
 });
+
+app.post('/api/upload/:userid', upload.single('image'), (req, res) => {
+  const { userid } = req.params; // Extract userid from params
+  const image = req.file;
+
+  if (!image) {
+    return res.status(400).json({ message: 'No image uploaded' });
+  }
+
+  const imagePath = path.join('Assets/userProfile', `${userid}.jpg`); // Path to be stored in the database
+
+  // Save the image path in the database
+  const query = 'UPDATE users SET profile_image = ? WHERE id = ?';
+  db.query(query, [imagePath, userid], (err, result) => {
+    if (err) {
+      console.error('Error updating image path:', err);
+      return res.status(500).json({ message: 'Database update failed' });
+    }
+    res.json({ message: 'Image uploaded successfully', imagePath });
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });

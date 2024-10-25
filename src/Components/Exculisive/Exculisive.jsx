@@ -3,6 +3,7 @@ import './Exclulisive.css';
 import StarRating from '../Starrating/Starrating';
 import Wishlist from '../../Components/Wishlist/Wishlist';
 import { Link } from 'react-router-dom';
+import Addcart from '../Addcart/Addcart';
 const Exculisive = ({ product }) => {
   return (
     <>
@@ -31,7 +32,7 @@ const Exculisive = ({ product }) => {
             </div>
             <h4>Description</h4>
             <p>{product.Description}</p>
-            <button className="basket">Add to Basket</button>
+            <button className="basket d-flex" style={{ alignItems :'center'}}><div style={{marginLeft:'-40px'}}><Addcart Product_id={product.id} Quantity={1} fonts={'20px'}/></div><div className='mx-2'>Add to Basket</div></button>
           </div>
         </div>
       </div>

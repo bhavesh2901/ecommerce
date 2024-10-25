@@ -18,7 +18,7 @@ const Navbar = () => {
     let userPhone = '';
     let userPhoto  = '';
     const { user } = useUser();
-    console.log(user);
+  
     if (user) {
         const nameArray = user['Fullname']?.split(' ');
          UserID = user['id'];
@@ -43,9 +43,9 @@ const Navbar = () => {
         <div className=''>
             <nav className="navbar navbar-expand-custom navbar-mainbg">
                 <a className="navbar-brand navbar-logo" href="#"><img className='' style={{ height: '40px' , width: '40px'}} src={imagelogo} alt="logo"></img></a>
-                <div class="d-flex">
-                    <input class="form-control mr-sm-2 rounded-lg mx-2 mt-1 rounded-pill" style={{fontSize:'13px'}} type="search" placeholder="Search" size="50" aria-label="Search"/>
-                    <button class="btn mt-1" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <div className="d-flex">
+                    <input className="form-control mr-sm-2 rounded-lg mx-2 mt-1 rounded-pill" style={{fontSize:'13px'}} type="search" placeholder="Search" size="50" aria-label="Search"/>
+                    <button className="btn mt-1" type="submit"><i className="fa-solid fa-magnifying-glass"></i></button>
                 </div>
                 <div className="collapse navbar-collapse justify-content-end " id="navbarSupportedContent">
                     <ul className="navbar-nav ml-auto mx-5 gap-5">
@@ -85,9 +85,9 @@ const Navbar = () => {
                 </div>
                {/* Show initials and full username if user exists, otherwise show login button */}
                     {user ? (
-                        <div class="dropdown ms-sm-3 header-item topbar-user">
-                            <button type="button" class="btn show border border-1" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <span class="d-flex align-items-center">
+                        <div className="dropdown ms-sm-3 header-item topbar-user">
+                            <button type="button" className="btn show border border-1" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span className="d-flex align-items-center">
                                 {
                                     userPhoto && userPhoto.length !== 0 ? (
                                         <img src={userPhoto} className='rounded-circle header-profile-user' style={{height: "50px", width: "50px"}} />
@@ -98,20 +98,20 @@ const Navbar = () => {
                                     )
                                 }
                                    
-                                    <span class="text-start ms-xl-2">
-                                        <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text" style={{fontSize: '13px'}}>{UserName}</span>
-                                        <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text" style={{fontSize : '11px'}}>{userEmail}</span>
+                                    <span className="text-start ms-xl-2">
+                                        <span className="d-none d-xl-inline-block ms-1 fw-medium user-name-text" style={{fontSize: '13px'}}>{UserName}</span>
+                                        <span className="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text" style={{fontSize : '11px'}}>{userEmail}</span>
                                     </span>
                                 </span>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-end  w-100 border border-1" data-popper-placement="bottom-end">
-                                <h6 class="dropdown-header">Welcome {UserName}</h6>
-                                <a class="dropdown-item" href="/profile"><i class="fa-solid fa-user text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
-                                <div class="dropdown-item" href="apps-chat.html"><i class="fa-solid fa-cart-shopping text-muted fs-16 align-middle me-1"></i> <span class="align-middle"><Link className='text-dark' to={`/cart/${UserID}`} >Cart</Link></span></div>
-                                <a class="dropdown-item" href="pages-faqs.html"><i class="fa-solid fa-circle-question text-muted fs-16 align-middle me-1"></i> <span class="align-middle"><Link className='text-dark' to={`/help`} >Help</Link></span></a>
-                                <div class="dropdown-divider"></div>
-                                <div class="dropdown-item" href="auth-logout-basic.html"><i class="fa-solid fa-heart text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout"><Link className='text-dark' to={`/wishlist/${UserID}`}>wishlist</Link></span></div>
-                                <div class="dropdown-item"  onClick={handleLogout} ><i class="fa-solid fa-right-from-bracket text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></div>
+                            <div className="dropdown-menu dropdown-menu-end  w-100 border border-1" data-popper-placement="bottom-end">
+                                <h6 className="dropdown-header">Welcome {UserName}</h6>
+                                <a className="dropdown-item" href="/profile"><i className="fa-solid fa-user text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Profile</span></a>
+                                <div className="dropdown-item" href="apps-chat.html"><i className="fa-solid fa-cart-shopping text-muted fs-16 align-middle me-1"></i> <span className="align-middle"><Link className='text-dark' to={`/cart/${UserID}`} >Cart</Link></span></div>
+                                <a className="dropdown-item" href="pages-faqs.html"><i className="fa-solid fa-circle-question text-muted fs-16 align-middle me-1"></i> <span className="align-middle"><Link className='text-dark' to={`/help`} >Help</Link></span></a>
+                                <div className="dropdown-divider"></div>
+                                <div className="dropdown-item" href="auth-logout-basic.html"><i className="fa-solid fa-heart text-muted fs-16 align-middle me-1"></i> <span className="align-middle" data-key="t-logout"><Link className='text-dark' to={`/wishlist/${UserID}`}>wishlist</Link></span></div>
+                                <div className="dropdown-item"  onClick={handleLogout} ><i className="fa-solid fa-right-from-bracket text-muted fs-16 align-middle me-1"></i> <span className="align-middle" data-key="t-logout">Logout</span></div>
                             </div>
                         </div>
                         // <div className='d-flex mx-2 mt-2' style={{lineHeight: '37px'}}>

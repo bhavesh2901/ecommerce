@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { UserProvider , useUser } from '../../UserContext';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 const Wishlist = ({Product_id}) => {
   const [isInWishlist, setIsInWishlist] = useState('No');
   const { user } = useUser();
@@ -33,6 +35,16 @@ const Wishlist = ({Product_id}) => {
           });
           fetchWishlistStatus();
           if (response.status === 200) {
+            toast.warn('🗑️ succesfully remove', {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+          });
             setIsInWishlist(false); // Successfully removed, update state
           } else {
             console.error('Failed to remove product from wishlist');
@@ -44,6 +56,16 @@ const Wishlist = ({Product_id}) => {
           });
           fetchWishlistStatus();
           if (response.status === 200) {
+            toast.success('❤️ successfully Add', {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+          });
             setIsInWishlist(true); // Successfully added, update state
           } else {
             console.error('Failed to add product to wishlist');

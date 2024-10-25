@@ -41,7 +41,7 @@ const Products = ({  setChekditems }) => {
       navigate(`/Products/${selectedCategories}`);  // Navigate to the dynamic route
     }
   }, [checkedItems, setChekditems, navigate]);
-  console.log(categoryArray);
+ 
       return (
         <div className="accordion container-fluid container-xl mt-5" style={{ height: '711px' }}>
           <div className="row mb-2 mx-3">

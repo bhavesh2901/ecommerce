@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { UserProvider , useUser } from '../../UserContext';
-const Addcart = ({Product_id , Quantity}) => {
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+const Addcart = ({Product_id , Quantity , fonts}) => {
     const [isIncart, setIsIncart] = useState('No');
     const { user } = useUser();
     const UserID = user ? user['id'] : null;
@@ -34,6 +37,16 @@ const Addcart = ({Product_id , Quantity}) => {
             fetchCartStatus();
             if (response.status === 200) {
                 setIsIncart(false); // Successfully removed, update state
+                toast.warn('succesfully remove cart', {
+                  position: "top-right",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "dark",
+              });
             } else {
               console.error('Failed to remove product from Cart');
             }
@@ -45,6 +58,16 @@ const Addcart = ({Product_id , Quantity}) => {
             fetchCartStatus();
             if (response.status === 200) {
                 setIsIncart(true); // Successfully added, update state
+                toast.success(' succesfully add cart', {
+                  position: "top-right",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "dark",
+              });
             } else {
               console.error('Failed to add product to Cart');
             }
@@ -61,10 +84,11 @@ const Addcart = ({Product_id , Quantity}) => {
     {
      user?
      (
+      
        <i
-          className={isIncart =='Yes' ? 'fa-solid fa-cart-shopping fs-5 text-success' : 'fa-solid fa-cart-shopping fs-5'}
+          className={isIncart =='Yes' ? 'fa-solid fa-cart-shopping  text-success' : 'fa-solid fa-cart-shopping '}
           onClick={toggleCart}
-          style={{ cursor: 'pointer' , display: 'flex', alignItems: 'center' }}
+          style={{ cursor: 'pointer' , fontSize : fonts ,display: 'flex', alignItems: 'center' }}
         ></i>
      )
      :

@@ -145,7 +145,7 @@
 }
 
 .Exculisivewrapper .basket:before {
-  background: url("https://res.cloudinary.com/dviuglhwb/image/upload/v1489676297/cart_t8m4la.svg") no-repeat scroll center center / 100% auto rgba(0, 0, 0, 0);
+  /* background: url("https://res.cloudinary.com/dviuglhwb/image/upload/v1489676297/cart_t8m4la.svg") no-repeat scroll center center / 100% auto rgba(0, 0, 0, 0); */
   content: "";
   display: inline-block;
   color: #fff;

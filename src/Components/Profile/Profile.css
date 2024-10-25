@@ -188,7 +188,7 @@ Licensed under MIT
   .margin-top-20 {
       margin-top: 20px!important;
   }
-  [class*=" fa-"]:not(.fa-stack), [class*=" glyphicon-"], [class*=" icon-"], [class^=fa-]:not(.fa-stack), [class^=glyphicon-], [class^=icon-] {
+  [className*=" fa-"]:not(.fa-stack), [className*=" glyphicon-"], [className*=" icon-"], [className^=fa-]:not(.fa-stack), [className^=glyphicon-], [className^=icon-] {
       display: inline-block;
       line-height: 14px;
       -webkit-font-smoothing: antialiased;

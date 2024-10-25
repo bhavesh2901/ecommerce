@@ -1,43 +1,147 @@
-import React from 'react'
-
+import React, { useEffect, useRef, useState } from 'react';
+import { UserProvider , useUser} from '../../UserContext';
+import axios from 'axios';
+import PaymentComponent from '../../Components/PaymentComponent/PaymentComponent';
 const Checkout = () => {
+  
+        const { user } = useUser();
+        const [fristname, setFristname] = useState();
+        const [lastname, setLastname] = useState();
+        const [userID, setUserID] = useState();
+        const [userEmail, setUserEmail] = useState();
+        const [userPhone, setUserPhone] = useState();
+        const [userPhoto, setUserPhoto] = useState();
+        const [full_address, setFull_address] = useState();
+        const [state, setState] = useState();
+        const [city, setCity] = useState();
+        const [zip_code, setZip_code] = useState();
+        const [phone_number, setPhone_number] = useState();
+        const [initials, setInitials] = useState();
+      
+
+
+        const [countries, setCountries] = useState([]);
+        const [states, setStates] = useState([]);
+        const [cities, setCities] = useState([]);
+        const [selectedCountry, setSelectedCountry] = useState('');
+        const [selectedState, setSelectedState] = useState('');
+      
+        // Function to fetch access token
+        const fetchAccessToken = async () => {
+          const response = await axios.get("https://www.universal-tutorial.com/api/getaccesstoken", {
+            headers: {
+              'Accept': 'application/json',
+              'api-token': 'j3BITieaWSW9jW0Qrp3pMMvgtZDgZ117UErAYlKkNnib4fSqvoLEDhXANa7xnYliNk8', // Replace with your actual token
+              'user-email': 'sarkari2901@gmail.com', // Replace with your actual email
+            },
+          });
+          return response.data.auth_token;
+        };
+      
+        // Fetch countries
+        const fetchCountries = async () => {
+          const token = await fetchAccessToken();
+          const response = await axios.get("https://www.universal-tutorial.com/api/countries", {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
+          });
+          setCountries(response.data);
+        };
+      
+        // Fetch states based on selected country
+        const fetchStates = async (country) => {
+          const token = await fetchAccessToken();
+          const response = await axios.get(`https://www.universal-tutorial.com/api/states/${country}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
+          });
+          setStates(response.data);
+        };
+      
+        // Fetch cities based on selected state
+        const fetchCities = async (state) => {
+          const token = await fetchAccessToken();
+          const response = await axios.get(`https://www.universal-tutorial.com/api/cities/${state}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
+          });
+          setCities(response.data);
+        };
+      
+        useEffect(() => {
+          fetchCountries();
+        }, []);
+      
+        const handleCountryChange = (e) => {
+          setSelectedCountry(e.target.value);
+          fetchStates(e.target.value);
+          setSelectedState('');
+          setCities([]);
+        };
+      
+        const handleStateChange = (e) => {
+          setSelectedState(e.target.value);
+          fetchCities(e.target.value);
+        };
+        useEffect(() => {
+            if (user) {
+                const nameArray = user['Fullname']?.split(' ');
+                setUserID(user['id']);
+                setUserEmail(user['Email']);
+                setUserPhone(user['Phone_number']);
+                setUserPhoto(user['profile_image']);
+                setFull_address(user['Full_address']);
+                setPhone_number(user['Phone_number']);
+                setCity(user['City']);
+                setState(user['State']);
+                setZip_code(user['zip_code']);
+    
+                if (nameArray && nameArray.length > 1) {
+                    setFristname(nameArray[0]);
+                    setLastname(nameArray[1]);
+                    setInitials(nameArray[0]?.charAt(0) + nameArray[1]?.charAt(0));
+                }
+            }
+        }, [user]); // This effect runs only
   return (
     <>
-            <div className="container">
+<div className="container">
 
-<div className="row">
+<div className="row mt-5">
     <div className="col-xl-8">
-        <div className="card">
+        <div className="card p-2">
             <div className="card-body checkout-tab">
-
-                <form action="#">
+                <form className='' action="#">
                     <div className="step-arrow-nav mt-n3 mx-n3 mb-3">
 
                         <ul className="nav nav-pills nav-justified custom-nav" role="tablist">
-                            <li className="nav-item" role="presentation">
-                                <button className="nav-link fs-15 p-3 active" id="pills-bill-info-tab" data-bs-toggle="pill" data-bs-target="#pills-bill-info" type="button" role="tab" aria-controls="pills-bill-info" aria-selected="true" data-position="0">
-                                    <i className="ri-user-2-line fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"></i> Personal Info
+                            <li className="nav-item mx-1" role="presentation">
+                                <button className="nav-link bg-pink-200 text-dark bg-gradient rounded-pill fs-15 p-3 active" id="pills-bill-info-tab" data-bs-toggle="pill" data-bs-target="#pills-bill-info" type="button" role="tab" aria-controls="pills-bill-info" aria-selected="true" data-position="0">
+                                <i class="fa-solid fa-user fs-16 p-2 bg-soft-primary text-primary  rounded-circle align-middle me-2"></i>   Personal Info
                                 </button>
                             </li>
-                            <li className="nav-item" role="presentation">
-                                <button className="nav-link fs-15 p-3" id="pills-bill-address-tab" data-bs-toggle="pill" data-bs-target="#pills-bill-address" type="button" role="tab" aria-controls="pills-bill-address" aria-selected="false" data-position="1">
-                                    <i className="ri-truck-line fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"></i> Shipping Info
+                            <li className="nav-item mx-1" role="presentation">
+                                <button className="nav-link bg-yellow-200 text-dark bg-gradient  rounded-pill fs-15 p-3" id="pills-bill-address-tab" data-bs-toggle="pill" data-bs-target="#pills-bill-address" type="button" role="tab" aria-controls="pills-bill-address" aria-selected="false" data-position="1">
+                                <i class="fa-solid fa-truck-fast fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"></i>   Shipping Info
                                 </button>
                             </li>
-                            <li className="nav-item" role="presentation">
-                                <button className="nav-link fs-15 p-3" id="pills-payment-tab" data-bs-toggle="pill" data-bs-target="#pills-payment" type="button" role="tab" aria-controls="pills-payment" aria-selected="false" data-position="2">
-                                    <i className="ri-bank-card-line fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"></i> Payment Info
+                            <li className="nav-item mx-1" role="presentation">
+                                <button className="nav-link bg-orange-200 text-dark bg-gradient rounded-pill fs-15 p-3" id="pills-payment-tab" data-bs-toggle="pill" data-bs-target="#pills-payment" type="button" role="tab" aria-controls="pills-payment" aria-selected="false" data-position="2">
+                                <i class="fa-solid fa-credit-card  fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"></i> Payment Info
                                 </button>
                             </li>
-                            <li className="nav-item" role="presentation">
-                                <button className="nav-link fs-15 p-3" id="pills-finish-tab" data-bs-toggle="pill" data-bs-target="#pills-finish" type="button" role="tab" aria-controls="pills-finish" aria-selected="false" data-position="3">
-                                    <i className="ri-checkbox-circle-line fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"></i> Finish
+                            <li className="nav-item mx-1" role="presentation">
+                                <button className="nav-link bg-green-200 text-dark bg-gradient rounded-pill fs-15 p-3" id="pills-finish-tab" data-bs-toggle="pill" data-bs-target="#pills-finish" type="button" role="tab" aria-controls="pills-finish" aria-selected="false" data-position="3">
+                                <i class="fa-solid fa-clipboard-check fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"></i> Finish
                                 </button>
                             </li>
                         </ul>
                     </div>
 
-                    <div className="tab-content">
+                    <div className="tab-content p-2">
                         <div className="tab-pane fade show active" id="pills-bill-info" role="tabpanel" aria-labelledby="pills-bill-info-tab">
                             <div>
                                 <h5 className="mb-1">Billing Information</h5>
@@ -48,15 +152,15 @@ const Checkout = () => {
                                 <div className="row">
                                     <div className="col-sm-6">
                                         <div className="mb-3">
-                                            <label for="billinginfo-firstName" className="form-label">First Name</label>
-                                            <input type="text" className="form-control" id="billinginfo-firstName" placeholder="Enter first name" value=""/>
+                                            <label for="billinginfo-firstName" className="form-label">*First Name</label>
+                                            <input type="text" className="form-control" onChange={e=>setFristname(e.target.value)} value={fristname} id="billinginfo-firstName" placeholder="Enter first name" ></input>
                                         </div>
                                     </div>
 
                                     <div className="col-sm-6">
                                         <div className="mb-3">
-                                            <label for="billinginfo-lastName" className="form-label">Last Name</label>
-                                            <input type="text" className="form-control" id="billinginfo-lastName" placeholder="Enter last name" value=""/>
+                                            <label for="billinginfo-lastName" className="form-label">*Surname</label>
+                                            <input type="text" className="form-control" onChange={e=>setLastname(e.target.value)} value={lastname} id="billinginfo-lastName" placeholder="Enter Surname" />
                                         </div>
                                     </div>
                                 </div>
@@ -64,44 +168,85 @@ const Checkout = () => {
                                 <div className="row">
                                     <div className="col-sm-6">
                                         <div className="mb-3">
-                                            <label for="billinginfo-email" className="form-label">Email <span className="text-muted">(Optional)</span></label>
-                                            <input type="email" className="form-control" id="billinginfo-email" placeholder="Enter email"/>
+                                            <label for="billinginfo-email" className="form-label">*Email <span className="text-muted">(Optional)</span></label>
+                                            <input type="email" className="form-control" onChange={e=>setUserEmail(e.target.value)} value={userEmail} id="billinginfo-email" placeholder="Enter email"/>
                                         </div>
                                     </div>
 
                                     <div className="col-sm-6">
                                         <div className="mb-3">
-                                            <label for="billinginfo-phone" className="form-label">Phone</label>
-                                            <input type="text" className="form-control" id="billinginfo-phone" placeholder="Enter phone no."/>
+                                            <label for="billinginfo-phone" className="form-label">*Phone</label>
+                                            <input type="text" className="form-control" onChange={e=>setUserPhone(e.target.value)} value={userPhone} id="billinginfo-phone" placeholder="Enter phone no."/>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="mb-3">
-                                    <label for="billinginfo-address" className="form-label">Address</label>
-                                    <textarea className="form-control" id="billinginfo-address" placeholder="Enter address" rows="3"></textarea>
+                                    <label for="billinginfo-address" className="form-label">*Address</label>
+                                    <textarea className="form-control" onChange={e=>setFull_address(e.target.value)} value={full_address} id="billinginfo-address" placeholder="Enter address" rows="3"></textarea>
                                 </div>
 
                                 <div className="row">
                                     <div className="col-md-4">
                                         <div className="mb-3">
-                                            <label for="country" className="form-label">Country</label>
-                                            <div className="choices" data-type="select-one" tabindex="0" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false"><div className="choices__inner"><select className="form-select choices__input" id="country" data-plugin="choices" hidden="" tabindex="-1" data-choice="active"><option value="United States" data-custom-properties="[object Object]">United States</option></select><div className="choices__list choices__list--single"><div className="choices__item choices__item--selectable" data-item="" data-id="1" data-value="United States" data-custom-properties="[object Object]" aria-selected="true">United States</div></div></div><div className="choices__list choices__list--dropdown" aria-expanded="false"><input type="text" className="choices__input choices__input--cloned" autocomplete="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" aria-label="Select Country..." placeholder="Search results here"/><div className="choices__list" role="listbox"><div id="choices--country-item-choice-1" className="choices__item choices__item--choice choices__placeholder choices__item--selectable is-highlighted" role="option" data-choice="" data-id="1" data-value="" data-select-text="Press to select" data-choice-selectable="" aria-selected="true">Select Country...</div><div id="choices--country-item-choice-2" className="choices__item choices__item--choice is-selected choices__item--selectable" role="option" data-choice="" data-id="2" data-value="United States" data-select-text="Press to select" data-choice-selectable="">United States</div></div></div></div>
+                                        <label for="country" class="form-label">Country</label>
+                                        <select id="Country" class="form-select" aria-label="Select Country" onChange={handleCountryChange} value={selectedCountry}>
+                                            <option value="">Select Country</option>
+                                            {countries.map((country) => (
+                                            <option key={country.country_id} value={country.country_name}>
+                                                {country.country_name}
+                                            </option>
+                                            ))}
+                                        </select>
+
                                         </div>
                                     </div>
 
                                     <div className="col-md-4">
                                         <div className="mb-3">
-                                            <label for="state" className="form-label">State</label>
-                                            <div className="choices" data-type="select-one" tabindex="0" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false"><div className="choices__inner"><select className="form-select choices__input" id="state" data-plugin="choices" hidden="" tabindex="-1" data-choice="active"><option value="California" data-custom-properties="[object Object]">California</option></select><div className="choices__list choices__list--single"><div className="choices__item choices__item--selectable" data-item="" data-id="1" data-value="California" data-custom-properties="[object Object]" aria-selected="true">California</div></div></div><div className="choices__list choices__list--dropdown" aria-expanded="false"><input type="text" className="choices__input choices__input--cloned" autocomplete="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" aria-label="Select State..." placeholder="Search results here"/><div className="choices__list" role="listbox"><div id="choices--state-item-choice-19" className="choices__item choices__item--choice choices__placeholder choices__item--selectable is-highlighted" role="option" data-choice="" data-id="19" data-value="" data-select-text="Press to select" data-choice-selectable="" aria-selected="true">Select State...</div><div id="choices--state-item-choice-1" className="choices__item choices__item--choice choices__item--selectable" role="option" data-choice="" data-id="1" data-value="Alabama" data-select-text="Press to select" data-choice-selectable="">Alabama</div><div id="choices--state-item-choice-2" className="choices__item choices__item--choice choices__item--selectable" role="option" data-choice="" data-id="2" data-value="Alaska" data-select-text="Press to select" data-choice-selectable="">Alaska</div><div id="choices--state-item-choice-3" className="choices__item choices__item--choice choices__item--selectable" role="option" data-choice="" data-id="3" data-value="American Samoa" data-select-text="Press to select" data-choice-selectable="">American Samoa</div><div id="choices--state-item-choice-4" className="choices__item choices__item--choice is-selected choices__item--selectable" role="option" data-choice="" data-id="4" data-value="California" data-select-text="Press to select" data-choice-selectable="">California</div><div id="choices--state-item-choice-5" className="choices__item choices__item--choice choices__item--selectable" role="option" data-choice="" data-id="5" data-value="Colorado" data-select-text="Press to select" data-choice-selectable="">Colorado</div><div id="choices--state-item-choice-6" className="choices__item choices__item--choice choices__item--selectable" role="option" data-choice="" data-id="6" data-value="District Of Columbia" data-select-text="Press to select" data-choice-selectable="">District Of Columbia</div><div id="choices--state-item-choice-7" className="choices__item choices__item--choice choices__item--selectable" role="option" data-choice="" data-id="7" data-value="Florida" data-select-text="Press to select" data-choice-selectable="">Florida</div><div id="choices--state-item-choice-8" className="choices__item choices__item--choice choices__item--selectable" role="option" data-choice="" data-id="8" data-value="Georgia" data-select-text="Press to select" data-choice-selectable="">Georgia</div><div id="choices--state-item-choice-9" className="choices__item choices__item--choice choices__item--selectable" role="option" data-choice="" data-id="9" data-value="Guam" data-select-text="Press to select" data-choice-selectable="">Guam</div><div id="choices--state-item-choice-10" className="choices__item choices__item--choice choices__item--selectable" role="option" data-choice="" data-id="10" data-value="Hawaii" data-select-text="Press to select" data-choice-selectable="">Hawaii</div><div id="choices--state-item-choice-11" className="choices__item choices__item--choice choices__item--selectable" role="option" data-choice="" data-id="11" data-value="Idaho" data-select-text="Press to select" data-choice-selectable="">Idaho</div><div id="choices--state-item-choice-12" className="choices__item choices__item--choice choices__item--selectable" role="option" data-choice="" data-id="12" data-value="Kansas" data-select-text="Press to select" data-choice-selectable="">Kansas</div><div id="choices--state-item-choice-13" className="choices__item choices__item--choice choices__item--selectable" role="option" data-choice="" data-id="13" data-value="Louisiana" data-select-text="Press to select" data-choice-selectable="">Louisiana</div><div id="choices--state-item-choice-14" className="choices__item choices__item--choice choices__item--selectable" role="option" data-choice="" data-id="14" data-value="Montana" data-select-text="Press to select" data-choice-selectable="">Montana</div><div id="choices--state-item-choice-15" className="choices__item choices__item--choice choices__item--selectable" role="option" data-choice="" data-id="15" data-value="Nevada" data-select-text="Press to select" data-choice-selectable="">Nevada</div><div id="choices--state-item-choice-16" className="choices__item choices__item--choice choices__item--selectable" role="option" data-choice="" data-id="16" data-value="New Jersey" data-select-text="Press to select" data-choice-selectable="">New Jersey</div><div id="choices--state-item-choice-17" className="choices__item choices__item--choice choices__item--selectable" role="option" data-choice="" data-id="17" data-value="New Mexico" data-select-text="Press to select" data-choice-selectable="">New Mexico</div><div id="choices--state-item-choice-18" className="choices__item choices__item--choice choices__item--selectable" role="option" data-choice="" data-id="18" data-value="New York" data-select-text="Press to select" data-choice-selectable="">New York</div></div></div></div>
+                                        <label for="state" class="form-label">State</label>
+                                        <select id="state" class="form-select" aria-label="Select state" onChange={handleStateChange} value={selectedState} disabled={!selectedCountry}>
+                                            <option value="">Select State</option>
+                                            {states.map((state) => (
+                                            <option key={state.state_id} value={state.state_name}>
+                                                {state.state_name}
+                                            </option>
+                                            ))}
+                                        </select>
+
                                         </div>
                                     </div>
+                                    <div className="col-md-4">
+                                        <div className="mb-3">
+                                        <label  for="country" class="form-label">City</label>
+                                        <select id="City" class="form-select" aria-label="Select City" disabled={!selectedState}>
+                                            <option value="">Select City</option>
+                                            {cities.map((city) => (
+                                            <option key={city.city_id} value={city.city_name}>
+                                                {city.city_name}
+                                            </option>
+                                            ))}
+                                        </select>
 
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                                <div className="row">
+                                   
                                     <div className="col-md-4">
                                         <div className="mb-3">
                                             <label for="zip" className="form-label">Zip Code</label>
-                                            <input type="text" className="form-control" id="zip" placeholder="Enter zip code"/>
+                                            <input type="text" onChange={e=>setZip_code(e.target.value)} value={zip_code} className="form-control" id="zip" placeholder="Enter zip code"/>
                                         </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                      
+                                    </div>
+
+                                    <div className="col-md-4">
+                                      
                                     </div>
                                 </div>
 
@@ -263,7 +408,7 @@ const Checkout = () => {
                                         </div>
 
                                         <div className="col-md-6">
-                                            <label for="cc-number" className="form-label">Credit card number</label>
+                                        <label for="cc-number" className="form-label">Credit card number</label>
                                             <input type="text" className="form-control" id="cc-number" placeholder="xxxx xxxx xxxx xxxx"/>
                                         </div>
 
@@ -285,6 +430,7 @@ const Checkout = () => {
 
                             <div className="d-flex align-items-start gap-3 mt-4">
                                 <button type="button" className="btn btn-light btn-label previestab" data-previous="pills-bill-address-tab"><i className="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>Back to Shipping</button>
+                                <PaymentComponent/>
                                 <button type="button" className="btn btn-primary btn-label right ms-auto nexttab" data-nexttab="pills-finish-tab"><i className="ri-shopping-basket-line label-icon align-middle fs-16 ms-2"></i>Complete Order</button>
                             </div>
                         </div>
@@ -315,7 +461,7 @@ const Checkout = () => {
 
     <div className="col-xl-4">
         <div className="card">
-            <div className="card-header">
+            <div className="card-header bg-yellow-100">
                 <div className="d-flex">
                     <div className="flex-grow-1">
                         <h5 className="card-title mb-0">Order Summary</h5>
@@ -323,8 +469,8 @@ const Checkout = () => {
                 </div>
             </div>
             <div className="card-body">
-                <div className="table-responsive table-card">
-                    <table className="table table-borderless align-middle mb-0">
+                <div className="table-responsive table-card ">
+                    <table className="table table-borderless align-middle mb-0 ">
                         <thead className="table-light text-muted">
                             <tr>
                                 <th style={{width: "90px"}} scope="col">Product</th>
@@ -377,7 +523,7 @@ const Checkout = () => {
                                 <td colspan="2">Discount <span className="text-muted">(VELZON15)</span> : </td>
                                 <td className="text-end">- $ 50.00</td>
                             </tr>
-                            <tr>
+                            <tr className='bg-red-200'>
                                 <td colspan="2">Shipping Charge :</td>
                                 <td className="text-end">$ 24.99</td>
                             </tr>
