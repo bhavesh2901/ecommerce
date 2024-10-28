@@ -20,6 +20,12 @@
 
 ![localhost_3001_Products_mens(mac) (1)](https://github.com/user-attachments/assets/f0550f27-1711-44dc-b062-654e5d68d050)
 
+# profile 
+
+![localhost_3001_profile(mac)](https://github.com/user-attachments/assets/aea4fbf6-fb57-4e35-a47d-cdc1eff1efa8)
+
+# cart
+![localhost_3001_profile(mac) (3)](https://github.com/user-attachments/assets/ebec1d35-bd5c-40d5-818d-23a707e95341)
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
