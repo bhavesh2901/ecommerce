@@ -1,5 +1,27 @@
 # Getting Started with Create React App
 
+# DASHBORD OR HOME PAGE 
+
+![localhost_3001_(mac)](https://github.com/user-attachments/assets/4e82c282-6eb5-4b1f-8b84-3bc2f442cfac)
+
+# FOOTER OR CONTACT AS 
+
+![localhost_3001_(mac) (1)](https://github.com/user-attachments/assets/5a669b7e-d613-4ddd-903c-b2542ce37ba1)
+
+# LOGIN PAGE 
+
+![localhost_3001_(mac) (2)](https://github.com/user-attachments/assets/89b22b38-fd8f-4cd6-afdd-390b5068c9eb)
+
+# CATEGORY PAGE 
+
+![localhost_3001_(mac) (3)](https://github.com/user-attachments/assets/f16f03fc-0b3f-4c7e-81b9-8782b94379c3)
+
+# DETAIL PAGE 
+
+![localhost_3001_Products_mens(mac) (1)](https://github.com/user-attachments/assets/f0550f27-1711-44dc-b062-654e5d68d050)
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
