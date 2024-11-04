@@ -8,7 +8,7 @@ const Helppage = () => {
       {/* Hero Section */}
       <Row className="text-center mb-5">
         <Col>
-          <h2 className="display-4"><i class="fa-brands fa-shopify"></i> Help & Support</h2>
+          <h2 className="display-4"><i className="fa-brands fa-shopify"></i> Help & Support</h2>
           <p className="lead">Need help with your order or account? We're here to assist you.</p>
           {/* <Image
             src={help}
@@ -53,7 +53,7 @@ const Helppage = () => {
 
         {/* Contact Card */}
         <Col md={6}>
-          <h3><i class="fa-solid fa-phone"></i> Contact Us</h3>
+          <h3><i className="fa-solid fa-phone"></i> Contact Us</h3>
           <Card className="shadow mb-4">
             <Card.Body className="text-center">
               <h5 className="card-title">Need help with your order?</h5>

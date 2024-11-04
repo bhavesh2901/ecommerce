@@ -120,22 +120,22 @@ const Checkout = () => {
                         <ul className="nav nav-pills nav-justified custom-nav" role="tablist">
                             <li className="nav-item mx-1" role="presentation">
                                 <button className="nav-link bg-pink-200 text-dark bg-gradient rounded-pill fs-15 p-3 active" id="pills-bill-info-tab" data-bs-toggle="pill" data-bs-target="#pills-bill-info" type="button" role="tab" aria-controls="pills-bill-info" aria-selected="true" data-position="0">
-                                <i class="fa-solid fa-user fs-16 p-2 bg-soft-primary text-primary  rounded-circle align-middle me-2"></i>   Personal Info
+                                <i className="fa-solid fa-user fs-16 p-2 bg-soft-primary text-primary  rounded-circle align-middle me-2"></i>   Personal Info
                                 </button>
                             </li>
                             <li className="nav-item mx-1" role="presentation">
                                 <button className="nav-link bg-yellow-200 text-dark bg-gradient  rounded-pill fs-15 p-3" id="pills-bill-address-tab" data-bs-toggle="pill" data-bs-target="#pills-bill-address" type="button" role="tab" aria-controls="pills-bill-address" aria-selected="false" data-position="1">
-                                <i class="fa-solid fa-truck-fast fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"></i>   Shipping Info
+                                <i className="fa-solid fa-truck-fast fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"></i>   Shipping Info
                                 </button>
                             </li>
                             <li className="nav-item mx-1" role="presentation">
                                 <button className="nav-link bg-orange-200 text-dark bg-gradient rounded-pill fs-15 p-3" id="pills-payment-tab" data-bs-toggle="pill" data-bs-target="#pills-payment" type="button" role="tab" aria-controls="pills-payment" aria-selected="false" data-position="2">
-                                <i class="fa-solid fa-credit-card  fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"></i> Payment Info
+                                <i className="fa-solid fa-credit-card  fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"></i> Payment Info
                                 </button>
                             </li>
                             <li className="nav-item mx-1" role="presentation">
                                 <button className="nav-link bg-green-200 text-dark bg-gradient rounded-pill fs-15 p-3" id="pills-finish-tab" data-bs-toggle="pill" data-bs-target="#pills-finish" type="button" role="tab" aria-controls="pills-finish" aria-selected="false" data-position="3">
-                                <i class="fa-solid fa-clipboard-check fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"></i> Finish
+                                <i className="fa-solid fa-clipboard-check fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"></i> Finish
                                 </button>
                             </li>
                         </ul>
@@ -189,8 +189,8 @@ const Checkout = () => {
                                 <div className="row">
                                     <div className="col-md-4">
                                         <div className="mb-3">
-                                        <label for="country" class="form-label">Country</label>
-                                        <select id="Country" class="form-select" aria-label="Select Country" onChange={handleCountryChange} value={selectedCountry}>
+                                        <label for="country" className="form-label">Country</label>
+                                        <select id="Country" className="form-select" aria-label="Select Country" onChange={handleCountryChange} value={selectedCountry}>
                                             <option value="">Select Country</option>
                                             {countries.map((country) => (
                                             <option key={country.country_id} value={country.country_name}>
@@ -204,8 +204,8 @@ const Checkout = () => {
 
                                     <div className="col-md-4">
                                         <div className="mb-3">
-                                        <label for="state" class="form-label">State</label>
-                                        <select id="state" class="form-select" aria-label="Select state" onChange={handleStateChange} value={selectedState} disabled={!selectedCountry}>
+                                        <label for="state" className="form-label">State</label>
+                                        <select id="state" className="form-select" aria-label="Select state" onChange={handleStateChange} value={selectedState} disabled={!selectedCountry}>
                                             <option value="">Select State</option>
                                             {states.map((state) => (
                                             <option key={state.state_id} value={state.state_name}>
@@ -218,8 +218,8 @@ const Checkout = () => {
                                     </div>
                                     <div className="col-md-4">
                                         <div className="mb-3">
-                                        <label  for="country" class="form-label">City</label>
-                                        <select id="City" class="form-select" aria-label="Select City" disabled={!selectedState}>
+                                        <label  for="country" className="form-label">City</label>
+                                        <select id="City" className="form-select" aria-label="Select City" disabled={!selectedState}>
                                             <option value="">Select City</option>
                                             {cities.map((city) => (
                                             <option key={city.city_id} value={city.city_name}>
